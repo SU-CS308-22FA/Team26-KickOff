@@ -1,0 +1,68 @@
+.users {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .user {
+    width: 350px;
+    height: 245px;
+    background-color:rgb(232, 232, 232);
+    border: 0px solid black;
+    border-radius: 15px;
+    margin: 3px;
+    display: flexbox;
+    padding: 0px;
+    align-items: left;
+    flex-direction: rocolumnw;
+  }
+  
+  .user p {
+    margin: 5px;
+  }
+
+  .user h4 {
+    margin: 10px;
+  }
+
+  .user h3 {
+    margin: 8px;
+  }
+
+  .user h2 {
+    margin: 10px;
+  }
+
+  
+  #updateInput {
+    border: 1px;
+    box-shadow: 10px;
+    width: 200px;
+    height: 20px;
+    margin: 8px;
+  }
+
+  .Button{
+    background-color: cornflowerblue;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    margin: 10px;
+    width: 40%;
+    height: 30px;
+    font-size: 13px;
+
+  }
+
+  .staticButton{
+    background-color: cornflowerblue;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    margin: 5px;
+    width: 40%;
+    height: 30px;
+    font-size: 13px;
+
+  }
