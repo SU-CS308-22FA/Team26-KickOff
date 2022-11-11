@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 5001;
 // Connect to the database
 mongoose
-  .connect(process.env.DB, { useNewUrlParser: true })
+  .connect("mongodb+srv://user:kickoff@cluster0.nytlmne.mongodb.net/?retryWrites=true&w=majority", { useNewUrlParser: true })
   .then(() => console.log(`Database connected successfully`))
   .catch((err) => console.log(err));
 // Since mongoose's Promise is deprecated, we override it with Node's Promise
