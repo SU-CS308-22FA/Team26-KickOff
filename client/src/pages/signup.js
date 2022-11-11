@@ -20,7 +20,7 @@ export default function Signup() {
   const [newPassword, setNewPassword] = useState("");
 
   const addUser = () => {
-    Axios.post("http://localhost:5001/api/signup", {
+    Axios.post("http://localhost:5001/api/user", {
       username: username,
       password: password,
       email: email,
@@ -36,11 +36,6 @@ export default function Signup() {
     });
   };
 
-  const getUsers = () => {
-    Axios.get("http://localhost:3001/users").then((response) => {
-      setUserList(response.data);
-    });
-  };
 
   const paperStyle2={padding : 20, height: "300px", width: 350, position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)"}
   const avatarStyle = { backgroundColor: "#03396c",width: "30px", height:"30px" }
