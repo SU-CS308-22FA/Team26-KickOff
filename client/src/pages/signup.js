@@ -20,7 +20,7 @@ export default function Signup() {
   const [newPassword, setNewPassword] = useState("");
 
   const addUser = () => {
-    Axios.post("http://localhost:3001/signup", {
+    Axios.post("http://localhost:5001/api/signup", {
       username: username,
       password: password,
       email: email,

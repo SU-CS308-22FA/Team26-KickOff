@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const routes = require('./routes/api');
 require('dotenv').config();
 const app = express();
-const port = process.env.PORT || 5001;
+const port = 5001;
 // Connect to the database
 mongoose
   .connect(process.env.DB, { useNewUrlParser: true })
