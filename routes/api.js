@@ -2,9 +2,17 @@ const express = require('express');
 const router = express.Router();
 const Todo = require('../models/todo');
 const User = require('../models/user');
-const asyncHandler = require("../middleware/asyncHandler");
 const isValidObjectId = require("../middleware/isValidObjectId");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const asyncHandler = require("express-async-handler")
 
+
+const generateToken = (id) => {
+  return jwt.sign({id}, process.env.JWT_SECRET, {
+      expiresIn:'7d',
+  });
+};
 
 router.get('/todos', (req, res, next) => {
   // This will return all the data, exposing only the id and action field to the client
@@ -37,6 +45,28 @@ router.post('/todos', (req, res, next) => {
     });
   }
 });
+// register user
+router.post("/register", async (req,res) => {
+  const user = req.body;
+  
+  // check if username or email has been taken by another user
+  const takenUsername = await User.findOne({username: user.username})
+  const takenEmail = await User.findOne({email: user.email})
+
+  if(takenUsername || takenEmail){
+    res.json({message: "Username or email has already been taken"})
+  } else {
+    user.password = await bcrypt.hash(req.body.password, 10)
+
+    const dbUser = new User({
+      username: user.username.toLowerCase(),
+      email: user.email.toLowerCase(),
+      password: user.password
+    })
+    dbUser.save()
+    res.json({message: "Success"})
+  }
+})
 // post user
 router.post('/user', (req, res, next) => {
   if (req.body.username && req.body.email && req.body.password) {
@@ -59,6 +89,26 @@ router.delete('/user/:id', (req, res, next) => {
   .then((data) => res.json(data))
   .catch(next);
 })
+function verifyJWT(req, res, next) {
+  // removes 'Bearer` from token
+  const token = req.headers["x-access-token"]?.split(' ')[1]
+
+  if (token) {
+      jwt.verify(token, process.env.PASSPORTSECRET, (err, decoded) => {
+          if (err) return res.json({isLoggedIn: false, message: "Failed To Authenticate"})
+          req.user = {};
+          req.user.id = decoded.id
+          req.user.username = decoded.username
+          next()
+      })
+  } else {
+      res.json({message: "Incorrect Token Given", isLoggedIn: false})
+  }
+}
+
+router.get("/isUserAuth", verifyJWT, (req, res) => {
+  return res.json({isLoggedIn: true, username: req.user.username})
+})
 //update user
 router.route("/updateUser/:id").post(function(req,res) {
   User.findById(req.params.id, function(err, user){
@@ -76,6 +126,8 @@ router.route("/updateUser/:id").post(function(req,res) {
     }
   });
 });
+//login user
+/*
 router.post("/login", (req, res) => {
   var { email, password } = req.body;
   console.log(req.body);
@@ -99,6 +151,78 @@ router.post("/login", (req, res) => {
     .catch((err) => {
       console.log(err);
     });
-});
+});*/
+/*
+router.post("/login",(req,res)=>{
+  const {email,password} =req.body;
+  User.findOne({email:email},(err,user)=>{
+      if(user){
+         if(password === user.password){
+             res.send({message:"login sucess",user:user})
+         }else{
+             res.send({message:"wrong credentials"})
+         }
+      }else{
+          res.send("not register")
+      }
+  })
+});*/
+/*
+router.post("/login", (req,res) => {
+  const userLoggingIn = req.body;
 
+  User.findOne({username: userLoggingIn.username})
+  .then(dbUser => {
+    if(!dbUser){
+      return res.json({message: "Invalid Username or password"})
+    }
+    bcrypt.compare(userLoggingIn.password, dbUser.password)
+    .then(isCorrect => {
+      if(isCorrect){
+        const payload = {
+          id: dbUser._id,
+          username: dbUser.username,
+        }
+        jwt.sign(
+          payload,
+          process.env.JWT_SECRET,
+          {expiresIn: 86400},
+          (err, token) => {
+            if (err) return res.json({message: "err"})
+            return res.json({
+              message: "Success",
+              token: "Bearer " + token
+            })
+          }
+        )
+      } else {
+        return res.json({
+          message: "Invalid Username or password"
+        })
+      }
+    })
+  })
+})*/
+
+const loginUser = asyncHandler(async (req, res, next) => {
+	const { username, password } = req.body;
+
+	const user = await User.findOne({ username });
+
+	if (user && (await user.matchPassword(password))) {
+		res.json({
+			_id: user._id,
+			username: user.username,
+			email: user.email,
+			token: generateToken(user._id),
+		});
+	} else {
+		res.status(401);
+		throw new Error("Invalid Email or Password");
+	}
+});
+router.post("/login", loginUser);
+router.get("/getUsername", verifyJWT, (req,res) => {
+  res.json({isLoggedIn: true, username: req.user.username})
+})
 module.exports = router;

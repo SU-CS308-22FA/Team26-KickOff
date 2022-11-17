@@ -11,19 +11,21 @@ export default function Update() {
 
     let na = true;
     const getUsers = () => {
-      Axios.get("http://localhost:3001/users").then((response) => {
+      Axios.get("api/users").then((response) => {
         setUserList(response.data);
       });
     };
 
     const deleteUser = (_id) => {
-      const api_str = "http://localhost:3001/delete/"
+      const api_str = "api/user/"
       const api_str2 = api_str + _id;
       Axios.delete(api_str2);
     };
   
     const updateUser = (_id) => {
-      Axios.put("http://localhost:3001/update", {
+      const api_str = "api/updateUser/"
+      const api_str2 = api_str + _id;
+      Axios.post(api_str2, {
         username: username,
         password: newPassword,
       });
