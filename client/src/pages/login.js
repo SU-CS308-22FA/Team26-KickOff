@@ -71,7 +71,7 @@ const handleSubmit = (event) => {
 							required
 							fullWidth
 							id="username"
-							label="Username Address"
+							label="Username"
 							name="username"
 							value={username}
 							onChange={(e) => setUsername(e.target.value)}

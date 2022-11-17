@@ -2,29 +2,28 @@ import { Link, useMatch, useResolvedPath, useNavigate } from "react-router-dom"
 import { useState, useEffect } from 'react'
 import { Button } from "@mui/material"
 import { logout } from "../actions/userActions"
+import { useDispatch, useSelector} from "react-redux";
 
 export default function Navbar() {
+    const dispatch = useDispatch();
     const history = useNavigate()
     const [username, setUsername] = useState(null)
 
+    const userLogin = useSelector((state) => state.userLogin);
+    const { loading, error, userInfo } = userLogin;
 
-    useEffect(() => {
-        fetch("/isUserAuth", {
-            headers: {
-                "x-access-token": localStorage.getItem("token")
-            }
-        })
-            .then(res => res.json())
-            .then(data => data.isLoggedIn ? setUsername(data.username) : null)
-    }, [])
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch(logout());
+      };
     return (
         <nav className="nav">
             <Link to="/" className="site-title">
                 KickOff
         </Link>
-            {username
+            {userInfo
                 ? <div>
-                    <div onClick={logout}>Logout</div>
+                    <Button onClick = {handleSubmit}>Logout</Button>
                 </div>
                 : <ul>
                     <CustomLink to="/login">

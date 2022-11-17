@@ -14,6 +14,7 @@ import {
 	USER_UPDATE_REQUEST,
 	USER_UPDATE_SUCCESS,
 } from "../constants/userConstants";
+import { useDispatch, useSelector } from "react-redux";
 
 export const login = (username, password) => async (dispatch) => {
     try {
@@ -52,7 +53,8 @@ export const deleteUser = (user) => async (dispatch, getState) => {
 			},
 		};
 
-		const { data } = await axios.post("/api/users/profile/delete", user, config);
+		const API = "/api/user/" + userInfo._id;
+		const { data } = await axios.delete(API, user);
 
 		dispatch({ type: USER_DELETE_SUCCESS, payload: data });
 

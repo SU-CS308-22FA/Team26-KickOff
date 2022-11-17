@@ -15,7 +15,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-	const [name, setName] = useState("");
+	const [username, setUserName] = useState("");
 	const [surname, setSurname] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -39,8 +39,7 @@ const Profile = () => {
 		if (!userInfo) {
 			navigate("/");
 		} else {
-			setName(userInfo.name);
-			setSurname(userInfo.surname);
+			setUserName(userInfo.username);
 			setEmail(userInfo.email);
 		}
 	}, [navigate, userInfo]);
@@ -91,12 +90,12 @@ const Profile = () => {
 								</ErrorMessage>
 							)}
 							<Form.Group controlId="name">
-								<Form.Label>Name</Form.Label>
+								<Form.Label>UserName</Form.Label>
 								<Form.Control
 									type="text"
 									placeholder="Enter Name"
-									value={name}
-									onChange={(e) => setName(e.target.value)}
+									value={username}
+									onChange={(e) => setUserName(e.target.value)}
 								></Form.Control>
 							</Form.Group>
 							<Form.Group controlId="surname">
