@@ -110,99 +110,59 @@ router.get("/isUserAuth", verifyJWT, (req, res) => {
   return res.json({isLoggedIn: true, username: req.user.username})
 })
 //update user
-router.route("/updateUser/:id").post(function(req,res) {
-  User.findById(req.params.id, function(err, user){
+router.route("/updateUser/:id").post(async function(req,res,next) {
+  User.findById(req.params.id, async function(err, user){
     if(!user) { return next(new Error("Unable to find user with this id"))}
     else {
+      
       if(req.body.username != null){ user.username = req.body.username; }
       if(req.body.email != null){ user.email = req.body.email; }
-      if(req.body.password != null){ user.password = req.body.password; }
+      if(req.body.password != null){ user.password = await bcrypt.hash(req.body.password, 10) }
 
       user.save().then(emp => {
-        res.json("User Information updated successfully");
+        res.json({
+          _id: user._id,
+          username: user.username,
+          email: user.email,
+          token: generateToken(user._id),
+        });
       }).catch(err => {
         res.status(400).send("Unable to update user");
       });
     }
   });
 });
-//login user
-/*
-router.post("/login", (req, res) => {
-  var { email, password } = req.body;
-  console.log(req.body);
-  if (!email || !password) {
-    return res.status(422).json({ error: "Add all data" });
-  }
-  User.findOne({ email: email })
-    .then((foundUser) => {
-      if (!foundUser) {
-        return res
-          .status(422)
-          .json({ error: "User does not exists with that email" });
-      } else {
-        if (foundUser.password === password) {
-          res.json({ message: "Loged in successfully" });
-        } else {
-          return res.status(422).json({ error: "Invalid email or password" });
-        }
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});*/
-/*
-router.post("/login",(req,res)=>{
-  const {email,password} =req.body;
-  User.findOne({email:email},(err,user)=>{
-      if(user){
-         if(password === user.password){
-             res.send({message:"login sucess",user:user})
-         }else{
-             res.send({message:"wrong credentials"})
-         }
-      }else{
-          res.send("not register")
-      }
-  })
-});*/
-/*
-router.post("/login", (req,res) => {
-  const userLoggingIn = req.body;
 
-  User.findOne({username: userLoggingIn.username})
-  .then(dbUser => {
-    if(!dbUser){
-      return res.json({message: "Invalid Username or password"})
-    }
-    bcrypt.compare(userLoggingIn.password, dbUser.password)
-    .then(isCorrect => {
-      if(isCorrect){
-        const payload = {
-          id: dbUser._id,
-          username: dbUser.username,
-        }
-        jwt.sign(
-          payload,
-          process.env.JWT_SECRET,
-          {expiresIn: 86400},
-          (err, token) => {
-            if (err) return res.json({message: "err"})
-            return res.json({
-              message: "Success",
-              token: "Bearer " + token
-            })
-          }
-        )
-      } else {
-        return res.json({
-          message: "Invalid Username or password"
-        })
-      }
-    })
-  })
-})*/
+const updateUserProfile = asyncHandler(async (req, res, next) => {
+	const user = await User.findById(req.user.username);
+	if (user) {
+		try {
+			//user.username = req.body.username || user.username;
+			user.email = req.body.email || user.email;
+			if (req.body.password) {
+				user.password = req.body.password;
+			}
+			const updatedUser = await user.save();
+
+			res.json({
+				_id: updatedUser._id,
+				username: updatedUser.username,
+				email: updatedUser.email,
+				token: generateToken(updatedUser._id),
+			});
+		} catch (error) {
+			// 11000 error code is DuplicateKey error
+			if (error.code === 11000) {
+				res.status(401);
+				throw new Error("Email already in use!");
+			}
+		}
+		
+	} else {
+		res.status(404);
+		throw new Error("User not found!");
+	}
+});
 
 const loginUser = asyncHandler(async (req, res, next) => {
 	const { username, password } = req.body;
@@ -221,6 +181,8 @@ const loginUser = asyncHandler(async (req, res, next) => {
 		throw new Error("Invalid Email or Password");
 	}
 });
+
+
 router.post("/login", loginUser);
 router.get("/getUsername", verifyJWT, (req,res) => {
   res.json({isLoggedIn: true, username: req.user.username})

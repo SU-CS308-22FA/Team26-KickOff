@@ -43,11 +43,11 @@ const Profile = () => {
 			setEmail(userInfo.email);
 		}
 	}, [navigate, userInfo]);
-/*
+
 	const submitHandler = (e) => {
 		e.preventDefault();
-		dispatch(updateProfile({ name, surname, email, password }));
-	};*/
+		dispatch(updateProfile({ username, email, password }));
+	};
 
 	const deleteUserHandler = () => {
 		dispatch(deleteUser());
@@ -66,7 +66,7 @@ const Profile = () => {
 			<div>
 				<Row className="profileContainer">
 					<Col md={12}>
-						<Form>
+						<Form onSubmit={submitHandler}>
 							{loading && <Loading />}
 							{success && (
 								<ErrorMessage variant="success">
@@ -90,7 +90,7 @@ const Profile = () => {
 								</ErrorMessage>
 							)}
 							<Form.Group controlId="name">
-								<Form.Label>UserName</Form.Label>
+								<Form.Label>Username</Form.Label>
 								<Form.Control
 									type="text"
 									placeholder="Enter Name"
@@ -98,15 +98,7 @@ const Profile = () => {
 									onChange={(e) => setUserName(e.target.value)}
 								></Form.Control>
 							</Form.Group>
-							<Form.Group controlId="surname">
-								<Form.Label>Surname</Form.Label>
-								<Form.Control
-									type="text"
-									placeholder="Enter Surname"
-									value={surname}
-									onChange={(e) => setSurname(e.target.value)}
-								></Form.Control>
-							</Form.Group>
+
 							<Form.Group controlId="email">
 								<Form.Label>Email Address</Form.Label>
 								<Form.Control

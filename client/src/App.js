@@ -6,15 +6,18 @@ import { Route, Routes, useNavigate } from "react-router-dom"
 import Signup from "./pages/signup";
 import Profile from "./pages/Profile"
 import Todo from "./components/Todo";
+import { useDispatch, useSelector} from "react-redux";
 
 function App() {
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin;
   return (
     <>
       <Navbar />
       <div className="App">
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route exact path="/" element={userInfo ? (<Homepage />) : (<Login/>)} />
           <Route path="/login" element={<Login />} />
           <Route path="/update" element={<Update />} />
           <Route path="/profile" element={<Profile />} />

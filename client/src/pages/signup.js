@@ -11,7 +11,7 @@ import PasswordIcon from '@mui/icons-material/Password';
 import MailIcon from '@mui/icons-material/Mail';
 import { Container } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
-
+import { useDispatch, useSelector} from "react-redux";
 
 export default function Signup() {
   const [username, setUsername] = useState("");
@@ -20,15 +20,18 @@ export default function Signup() {
   const [userList, setUserList] = useState([]);
   const [newPassword, setNewPassword] = useState("");
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, error, userInfo } = userLogin;
+
 
   const history = useNavigate();
   async function handleRegister(e) {
     e.preventDefault()
     const form = e.target
     const user = {
-      username: form[0].value,
-      email: form[1].value,
-      password: form[2].value,
+      username: username,
+      email: email,
+      password: password,
     }
     fetch("/api/register", {
       method: "POST",
@@ -37,6 +40,7 @@ export default function Signup() {
       },
       body: JSON.stringify(user)
     })
+    history("/")
   }
 
   useEffect(() => {
@@ -46,31 +50,9 @@ export default function Signup() {
       }
     })
       .then(res => res.json())
-      .then(data => data.isLoggedIn ? history("/update") : null)
+      .then(userInfo ? history("/profile") : null)
   }, [])
-/*
-  const [user, setUser] = useState({
-    username: "",
-    email: "",
-    password: ""
-  })
-  const handleChange = e => {
-    const { name, value } = e.target
-    setUser({
-      ...user,//spread operator 
-      [name]: value
-    })
-  }
 
-  const addUser = () => {
-    const { username, email, password } = user;
-    if (username && email && password) {
-      Axios.post("/api/user", user).then(res => console.log(res))
-    }
-    else {
-      alert("invalid input")
-    };
-  };*/
 
 
   const paperStyle2 = { padding: 20, height: "300px", width: 350, position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)" }
@@ -82,20 +64,34 @@ export default function Signup() {
         <Grid align="center ">
           <h2>Sign Up</h2>
         </Grid>
+        <div className='information'>
+          <input required
+            border= "1px "
+            type="text"
+            placeholder= "*Username"
+            onChange={(event) => {
+              setUsername(event.target.value);
+            }} />
+          <input required
+            type="mail"
+            placeholder="*E-mail"
+            onChange={(event) => {
+              setEmail(event.target.value);
+            }} />
+          <input required
+            type="password"
+            placeholder="*Password"
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }} />
+        </div>
 
-        <form onSubmit={event => handleRegister(event)}>
-          <input required type="username" id="sign-in-email" class=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" name="username" placeholder="Your username" />
-          <p> </p>
-          <input required type="email" id="sign-in-email" class=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" name="email" placeholder="Your email" />
-          <p> </p>
-          <input required type="password" id="sign-in-email" class=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" name="password" placeholder="Your password" />
-          <input type="submit" value="Register" />
-        </form>
-
+        
 
         <p> {" "} </p>
-        <button className="Button3" type="submit" color="rgb(0,0,0)" variant='contained' halfWidth> Register </button>
+        <button onClick={handleRegister} className="Button3" type="submit" color="rgb(0,0,0)" variant='contained' halfWidth> Register </button>
       </Paper>
     </Grid>
+    
   );
 }

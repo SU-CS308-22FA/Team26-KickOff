@@ -22,9 +22,15 @@ export default function Navbar() {
                 KickOff
         </Link>
             {userInfo
-                ? <div>
-                    <Button onClick = {handleSubmit}>Logout</Button>
-                </div>
+                ? 
+                <ul>
+                <CustomLink to="/profile">
+                    Profile
+                </CustomLink>
+                <CustomLink to="/login" onClick = {handleSubmit}>
+                    Logout
+                </CustomLink>
+                </ul>
                 : <ul>
                     <CustomLink to="/login">
                         Login
@@ -32,7 +38,6 @@ export default function Navbar() {
                     <CustomLink to="/signup">
                         Sign Up
             </CustomLink>
-            <Button onClick = {logout}>Logout</Button>
                 </ul>
             }
         </nav>
