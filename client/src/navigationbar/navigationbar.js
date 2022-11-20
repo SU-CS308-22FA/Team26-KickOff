@@ -15,6 +15,7 @@ export default function Navbar() {
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(logout());
+        history("/")
       };
     return (
         <nav className="nav">
@@ -27,7 +28,7 @@ export default function Navbar() {
                 <CustomLink to="/profile">
                     Profile
                 </CustomLink>
-                <CustomLink to="/login" onClick = {handleSubmit}>
+                <CustomLink to="/" onClick = {handleSubmit}>
                     Logout
                 </CustomLink>
                 </ul>
