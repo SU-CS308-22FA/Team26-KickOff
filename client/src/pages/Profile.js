@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Row, Col } from "react-bootstrap";
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -58,6 +58,7 @@ const Profile = () => {
 
 	const deleteUserHandler = () => {
 		dispatch(deleteUser());
+		navigate("/")
 	};
 
 

@@ -15,6 +15,7 @@ export default function Navbar() {
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(logout());
+        history("/")
       };
     return (
         <nav className="nav">
