@@ -6,7 +6,7 @@
 }
 .profileContainer {
 	display: flex;
-	margin: 20px;
+	margin: 1px;
 }
 @media only screen and (max-width: 768px) {
 	.profileContainer {
@@ -72,3 +72,34 @@ body{margin-top:20px;
 		margin-left: 1rem;
 		margin-right: 1rem;
 	}
+
+	.account-box{
+		width: 50%;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 1fr 5fr;
+		margin-top: 3rem;
+		gap: 3rem;
+		align-items: flex-start;
+	  }
+	  .account-box-img {
+		margin-top: 2rem;
+		cursor: pointer;
+		position: relative;
+		text-align: center;
+	  }
+	  .account-box-img-img {
+		border-radius: 50%;
+		background-color: rgb(208, 198, 184);
+	  }
+	
+	  .account-box-img-img-text {
+		font-weight: 700;
+		font-size: 1.2rem;
+		line-height: 0;
+	  }
+	  .account {
+		width: 100%;
+		margin-block: 6rem;
+		/* background-color: gainsboro; */
+	  }

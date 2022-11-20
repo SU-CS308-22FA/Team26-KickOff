@@ -6,6 +6,8 @@ const isValidObjectId = require("../middleware/isValidObjectId");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const asyncHandler = require("express-async-handler")
+const expressFormidable = require("express-formidable")
+
 
 
 const generateToken = (id) => {
@@ -61,7 +63,8 @@ router.post("/register", async (req,res) => {
     const dbUser = new User({
       username: user.username.toLowerCase(),
       email: user.email.toLowerCase(),
-      password: user.password
+      password: user.password,
+      image: ""
     })
     dbUser.save()
     res.json({message: "Success"})
@@ -117,6 +120,7 @@ router.route("/updateUser/:id").post(async function(req,res,next) {
       
       if(req.body.username != null){ user.username = req.body.username; }
       if(req.body.email != null){ user.email = req.body.email; }
+      if(req.body.image != null){ user.image = req.body.image; }
       if(req.body.password != null){ user.password = await bcrypt.hash(req.body.password, 10) }
 
       user.save().then(emp => {
@@ -124,6 +128,7 @@ router.route("/updateUser/:id").post(async function(req,res,next) {
           _id: user._id,
           username: user.username,
           email: user.email,
+          image: user.image,
           token: generateToken(user._id),
         });
       }).catch(err => {
@@ -173,7 +178,8 @@ const loginUser = asyncHandler(async (req, res, next) => {
 		res.json({
 			_id: user._id,
 			username: user.username,
-			email: user.email,
+      email: user.email,
+      image: user.image,
 			token: generateToken(user._id),
 		});
 	} else {
@@ -181,8 +187,6 @@ const loginUser = asyncHandler(async (req, res, next) => {
 		throw new Error("Invalid Email or Password");
 	}
 });
-
-
 router.post("/login", loginUser);
 router.get("/getUsername", verifyJWT, (req,res) => {
   res.json({isLoggedIn: true, username: req.user.username})
