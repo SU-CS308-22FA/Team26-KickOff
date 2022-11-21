@@ -4,8 +4,9 @@ import Update from "./pages/update";
 import Homepage from "./pages/home";
 import { Route, Routes, useNavigate } from "react-router-dom"
 import Signup from "./pages/signup";
-import Profile from "./pages/Profile"
+import Profile from "./pages/Profile";
 import Todo from "./components/Todo";
+import Team from "./pages/Team";
 import { useDispatch, useSelector} from "react-redux";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/update" element={<Update />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/teams" element={<Team />} />
           <Route path="/todo" element={<Todo />} />
         </Routes>
       </div>

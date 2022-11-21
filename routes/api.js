@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const asyncHandler = require("express-async-handler")
 const expressFormidable = require("express-formidable")
+const Team = require('../models/team');
 
 
 
@@ -191,4 +192,67 @@ router.post("/login", loginUser);
 router.get("/getUsername", verifyJWT, (req,res) => {
   res.json({isLoggedIn: true, username: req.user.username})
 })
+
+
+
+
+//Team apis
+
+// Get teams
+router.get("/teams", asyncHandler(async (req,res) => {
+  const teams = await Team.find();
+  res.send(teams);
+ }));
+ //get team by id
+router.get(
+  "/teams/:id",
+  isValidObjectId,
+  asyncHandler(async (req,res) => {
+    const team = await Team.findById(req.params.id);
+    res.send(team);
+  })
+ );
+ // post team
+router.post('/team', (req, res, next) => {
+  if (req.body.teamname && req.body.director && req.body.st_name && req.body.logo) {
+    Team.create(req.body).then((data) => res.json(data)).catch(next);
+  }
+  else {
+    res.json({
+      error: 'The input field is missing',
+    });
+  }
+})
+// delete team
+router.delete('/team/:id', (req, res, next) => {
+  Team.findOneAndDelete({_id: req.params.id})
+  .then((data) => res.json(data))
+  .catch(next);
+})
+//update team
+router.route("/updateTeam/:id").post(async function(req,res,next) {
+  Team.findById(req.params.id, async function(err, team){
+    if(!team) { return next(new Error("Unable to find team with this id"))}
+    else {
+      
+      if(req.body.teamname != null){ team.teamname = req.body.teamname; }
+      if(req.body.director != null){ team.director = req.body.director; }
+      if(req.body.st_name != null){ team.st_name = req.body.st_name; }
+      if(req.body.logo != null){ team.logo = req.body.logo; }
+      
+      team.save().then(emp => {
+        res.json({
+          _id: team._id,
+          teamname: team.teamname,
+          director: team.director,
+          st_name: team.st_name,
+          logo: team.logo,
+        });
+      }).catch(err => {
+        res.status(400).send("Unable to update team");
+      });
+    }
+  });
+});
+
 module.exports = router;
