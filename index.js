@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const routes = require('./routes/api');
+const matchroutes = require("./routes/matchcontroller");
+
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5001;
@@ -19,6 +21,8 @@ app.use((req, res, next) => {
 });
 app.use(bodyParser.json());
 app.use('/api', routes);
+app.use('/matchcontroller', matchroutes);
+
 app.use((err, req, res, next) => {
   console.log(err);
   next();
