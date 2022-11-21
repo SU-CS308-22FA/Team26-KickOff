@@ -19,7 +19,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={userInfo ? (<Homepage />) : (<Login/>)} />
           <Route path="/login" element={<Login />} />
-          <Route path="/update" element={<Update />} />
+          <Route exact path="/update" element={userInfo ? userInfo.isAdmin ? (<Update/>) : (<Profile/>) : (<Login/>)} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/todo" element={<Todo />} />
