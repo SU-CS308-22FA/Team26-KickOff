@@ -64,7 +64,8 @@ router.post("/register", async (req,res) => {
       username: user.username.toLowerCase(),
       email: user.email.toLowerCase(),
       password: user.password,
-      image: ""
+      image: "",
+      supportedTeam: "",
     })
     dbUser.save()
     res.json({message: "Success"})
@@ -121,6 +122,7 @@ router.route("/updateUser/:id").post(async function(req,res,next) {
       if(req.body.username != null){ user.username = req.body.username; }
       if(req.body.email != null){ user.email = req.body.email; }
       if(req.body.image != null){ user.image = req.body.image; }
+      if(req.body.supportedTeam != null){ user.supportedTeam = req.body.supportedTeam; }
       if(req.body.password != null){ user.password = await bcrypt.hash(req.body.password, 10) }
 
       user.save().then(emp => {
@@ -129,6 +131,8 @@ router.route("/updateUser/:id").post(async function(req,res,next) {
           username: user.username,
           email: user.email,
           image: user.image,
+          supportedTeam: user.supportedTeam,
+          isAdmin: user.isAdmin,
           token: generateToken(user._id),
         });
       }).catch(err => {
@@ -136,37 +140,6 @@ router.route("/updateUser/:id").post(async function(req,res,next) {
       });
     }
   });
-});
-
-const updateUserProfile = asyncHandler(async (req, res, next) => {
-	const user = await User.findById(req.user.username);
-	if (user) {
-		try {
-			//user.username = req.body.username || user.username;
-			user.email = req.body.email || user.email;
-			if (req.body.password) {
-				user.password = req.body.password;
-			}
-			const updatedUser = await user.save();
-
-			res.json({
-				_id: updatedUser._id,
-				username: updatedUser.username,
-				email: updatedUser.email,
-				token: generateToken(updatedUser._id),
-			});
-		} catch (error) {
-			// 11000 error code is DuplicateKey error
-			if (error.code === 11000) {
-				res.status(401);
-				throw new Error("Email already in use!");
-			}
-		}
-		
-	} else {
-		res.status(404);
-		throw new Error("User not found!");
-	}
 });
 
 const loginUser = asyncHandler(async (req, res, next) => {
@@ -180,6 +153,8 @@ const loginUser = asyncHandler(async (req, res, next) => {
 			username: user.username,
       email: user.email,
       image: user.image,
+      supportedTeam: user.supportedTeam,
+      isAdmin: user.isAdmin,
 			token: generateToken(user._id),
 		});
 	} else {
