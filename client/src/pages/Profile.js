@@ -146,7 +146,7 @@ const Profile = () => {
 								</ErrorMessage>
 							)}
 							{imageFormat ?
-								<ErrorMessage variant="success">
+								<ErrorMessage variant="danger">
 									Please enter valid URL
 								</ErrorMessage> : null}
 							<img

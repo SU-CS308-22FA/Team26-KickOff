@@ -1,6 +1,23 @@
 import { useState } from 'react';
 import Axios from 'axios';
+import {
+	USER_DELETE_FAIL,
+	USER_DELETE_REQUEST,
+	USER_DELETE_SUCCESS,
+	USER_LOGIN_FAIL,
+	USER_LOGIN_REQUEST,
+	USER_LOGIN_SUCCESS,
+	USER_LOGOUT,
+	USER_REGISTER_FAIL,
+	USER_REGISTER_REQUEST,
+	USER_REGISTER_SUCCESS,
+	USER_UPDATE_FAIL,
+	USER_UPDATE_REQUEST,
+	USER_UPDATE_SUCCESS,
+} from "../constants/userConstants";
 import '../styles/update.css'
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Update() {
     const [username, setUsername] = useState("");
@@ -8,6 +25,8 @@ export default function Update() {
     const [userList, setUserList] = useState([]);
     const [newPassword, setNewPassword] = useState("");
   
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     let na = true;
     const getUsers = () => {
@@ -16,21 +35,39 @@ export default function Update() {
       });
     };
 
-    const deleteUser = (_id) => {
-      const api_str = "api/user/"
-      const api_str2 = api_str + _id;
-      Axios.delete(api_str2);
-    };
-  
-    const updateUser = (_id) => {
-      const api_str = "api/updateUser/"
-      const api_str2 = api_str + _id;
-      Axios.post(api_str2, {
-        username: username,
-        password: newPassword,
-      });
-      setNewPassword("")
-    };
+
+    async function triggerDelete (_id) {
+      try {
+        dispatch({ type: USER_DELETE_REQUEST });
+        /*
+        const {
+          userLogin: { userInfo },
+        } = getState();
+    
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        };*/
+        
+        const API = "/api/user/" + _id;
+        const { data } = await Axios.delete(API);
+    
+        dispatch({ type: USER_DELETE_SUCCESS, payload: data });
+    
+    
+      } catch (error) {
+        dispatch({
+          type: USER_DELETE_FAIL,
+          payload:
+            error.response && error.response.data.message
+              ? error.response.data.message
+              : error.message,
+        });
+      }
+
+    }
   
     return (
   
@@ -42,18 +79,10 @@ export default function Update() {
             return (
               <div className='user'> 
                 <h2>{val.username}</h2>
-                <p>Email:{val.email}</p>
-                <p>Password:{val.password}</p>
-  
-                <input type="text" placeholder="Enter Your New Password" id="updateInput" onChange={(event) => {
-                  setNewPassword(event.target.value)
-                }}/>
-                <input type="text" placeholder="Enter New Email" id="updateInput" onChange={(event) => {
-                  setNewPassword(event.target.value)
-                }}/>
+                <p>{val.email}</p>
+
                 <p> {" "}</p>
-                <button className='Button'  onClick={(updateUsers) => {updateUsers(val._id)}}>Update</button>
-                <button className='Button'  onClick={(deleteUser) => {deleteUser(val._id)}}>Delete</button>
+                <button className='Button'  onClick={() => triggerDelete(val._id)}>Delete</button>
                 
               </div>
             );

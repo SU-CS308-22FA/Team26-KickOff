@@ -2,7 +2,7 @@ import { Link, useMatch, useResolvedPath, useNavigate } from "react-router-dom"
 import { useState, useEffect } from 'react'
 import { Button } from "@mui/material"
 import { logout } from "../actions/userActions"
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Navbar() {
     const dispatch = useDispatch();
@@ -16,21 +16,31 @@ export default function Navbar() {
         event.preventDefault();
         dispatch(logout());
         history("/")
-      };
+    };
     return (
         <nav className="nav">
             <Link to="/" className="site-title">
                 KickOff
         </Link>
             {userInfo
-                ? 
+                ?
                 <ul>
-                <CustomLink to="/profile">
-                    Profile
+                    <CustomLink to="/profile">
+                        Profile
                 </CustomLink>
-                <CustomLink to="/" onClick = {handleSubmit}>
-                    Logout
+                    <CustomLink to="/" onClick={handleSubmit}>
+                        Logout
                 </CustomLink>
+                
+
+
+                    {userInfo.isAdmin ?
+                        <CustomLink to="/update">
+                            Delete Users
+                            </CustomLink>
+                        : null}
+
+                        
                 </ul>
                 : <ul>
                     <CustomLink to="/login">
