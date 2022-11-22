@@ -5,6 +5,7 @@ import Homepage from "./pages/home";
 import { Route, Routes, useNavigate } from "react-router-dom"
 import Signup from "./pages/signup";
 import Profile from "./pages/Profile"
+import Matches from "./pages/matches"
 import Todo from "./components/Todo";
 import { useDispatch, useSelector} from "react-redux";
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/todo" element={<Todo />} />
+          <Route path="/matches" element={<Matches />} />
         </Routes>
       </div>
     </>
