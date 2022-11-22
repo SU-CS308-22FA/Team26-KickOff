@@ -5,6 +5,7 @@ import Homepage from "./pages/home";
 import { Route, Routes, useNavigate } from "react-router-dom"
 import Signup from "./pages/signup";
 import Profile from "./pages/Profile"
+import League from "./pages/league"
 import Todo from "./components/Todo";
 import { useDispatch, useSelector} from "react-redux";
 
@@ -22,6 +23,7 @@ function App() {
           <Route path="/update" element={<Update />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/league" element={<League />} />
           <Route path="/todo" element={<Todo />} />
         </Routes>
       </div>

@@ -28,6 +28,9 @@ export default function Navbar() {
                 <CustomLink to="/profile">
                     Profile
                 </CustomLink>
+                <CustomLink to="/league">
+                    League
+                </CustomLink>
                 <CustomLink to="/" onClick = {handleSubmit}>
                     Logout
                 </CustomLink>
