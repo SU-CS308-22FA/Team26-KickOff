@@ -7,6 +7,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const asyncHandler = require("express-async-handler")
 const expressFormidable = require("express-formidable")
+const Team = require('../models/team');
+const Player = require('../models/player');
 
 
 
@@ -64,7 +66,8 @@ router.post("/register", async (req,res) => {
       username: user.username.toLowerCase(),
       email: user.email.toLowerCase(),
       password: user.password,
-      image: ""
+      image: "",
+      supportedTeam: "",
     })
     dbUser.save()
     res.json({message: "Success"})
@@ -121,6 +124,7 @@ router.route("/updateUser/:id").post(async function(req,res,next) {
       if(req.body.username != null){ user.username = req.body.username; }
       if(req.body.email != null){ user.email = req.body.email; }
       if(req.body.image != null){ user.image = req.body.image; }
+      if(req.body.supportedTeam != null){ user.supportedTeam = req.body.supportedTeam; }
       if(req.body.password != null){ user.password = await bcrypt.hash(req.body.password, 10) }
 
       user.save().then(emp => {
@@ -129,6 +133,8 @@ router.route("/updateUser/:id").post(async function(req,res,next) {
           username: user.username,
           email: user.email,
           image: user.image,
+          supportedTeam: user.supportedTeam,
+          isAdmin: user.isAdmin,
           token: generateToken(user._id),
         });
       }).catch(err => {
@@ -136,37 +142,6 @@ router.route("/updateUser/:id").post(async function(req,res,next) {
       });
     }
   });
-});
-
-const updateUserProfile = asyncHandler(async (req, res, next) => {
-	const user = await User.findById(req.user.username);
-	if (user) {
-		try {
-			//user.username = req.body.username || user.username;
-			user.email = req.body.email || user.email;
-			if (req.body.password) {
-				user.password = req.body.password;
-			}
-			const updatedUser = await user.save();
-
-			res.json({
-				_id: updatedUser._id,
-				username: updatedUser.username,
-				email: updatedUser.email,
-				token: generateToken(updatedUser._id),
-			});
-		} catch (error) {
-			// 11000 error code is DuplicateKey error
-			if (error.code === 11000) {
-				res.status(401);
-				throw new Error("Email already in use!");
-			}
-		}
-		
-	} else {
-		res.status(404);
-		throw new Error("User not found!");
-	}
 });
 
 const loginUser = asyncHandler(async (req, res, next) => {
@@ -180,6 +155,8 @@ const loginUser = asyncHandler(async (req, res, next) => {
 			username: user.username,
       email: user.email,
       image: user.image,
+      supportedTeam: user.supportedTeam,
+      isAdmin: user.isAdmin,
 			token: generateToken(user._id),
 		});
 	} else {
@@ -191,4 +168,136 @@ router.post("/login", loginUser);
 router.get("/getUsername", verifyJWT, (req,res) => {
   res.json({isLoggedIn: true, username: req.user.username})
 })
+
+
+
+
+//Team apis
+
+// Get teams
+router.get("/teams", asyncHandler(async (req,res) => {
+  const teams = await Team.find();
+  res.send(teams);
+ }));
+ //get team by id
+router.get(
+  "/teams/:id",
+  isValidObjectId,
+  asyncHandler(async (req,res) => {
+    const team = await Team.findById(req.params.id);
+    res.send(team);
+  })
+ );
+ // post team
+router.post('/team', (req, res, next) => {
+  if (req.body.teamname && req.body.director && req.body.st_name && req.body.logo) {
+    Team.create(req.body).then((data) => res.json(data)).catch(next);
+  }
+  else {
+    res.json({
+      error: 'The input field is missing',
+    });
+  }
+})
+// delete team
+router.delete('/team/:id', (req, res, next) => {
+  Team.findOneAndDelete({_id: req.params.id})
+  .then((data) => res.json(data))
+  .catch(next);
+})
+//update team
+router.route("/updateTeam/:id").post(async function(req,res,next) {
+  Team.findById(req.params.id, async function(err, team){
+    if(!team) { return next(new Error("Unable to find team with this id"))}
+    else {
+      
+      if(req.body.teamname != null){ team.teamname = req.body.teamname; }
+      if(req.body.director != null){ team.director = req.body.director; }
+      if(req.body.st_name != null){ team.st_name = req.body.st_name; }
+      if(req.body.logo != null){ team.logo = req.body.logo; }
+      
+      team.save().then(emp => {
+        res.json({
+          _id: team._id,
+          teamname: team.teamname,
+          director: team.director,
+          st_name: team.st_name,
+          logo: team.logo,
+        });
+      }).catch(err => {
+        res.status(400).send("Unable to update team");
+      });
+    }
+  });
+});
+
+
+//player apis
+
+// Get players
+router.get("/players", asyncHandler(async (req,res) => {
+  const players = await Player.find();
+  res.send(players);
+ }));
+
+ //get player by id
+router.get(
+  "/players/:id",
+  isValidObjectId,
+  asyncHandler(async (req,res) => {
+    const player = await Player.findById(req.params.id);
+    res.send(player);
+  })
+ );
+
+ // post player
+router.post('/player', (req, res, next) => {
+  if (req.body.teamname && req.body.p_num && req.body.p_name && req.body.p_pos && req.body.p_image) {
+    Player.create(req.body).then((data) => res.json(data)).catch(next);
+  }
+  else {
+    res.json({
+      error: 'The input field is missing',
+    });
+  }
+})
+// delete player
+router.delete('/player/:id', (req, res, next) => {
+  Player.findOneAndDelete({_id: req.params.id})
+  .then((data) => res.json(data))
+  .catch(next);
+})
+
+router.get(
+  ""
+);
+
+//update player
+router.route("/updatePlayer/:id").post(async function(req,res,next) {
+  Player.findById(req.params.id, async function(err, player){
+    if(!player) { return next(new Error("Unable to find player with this id"))}
+    else {
+      
+      if(req.body.teamname != null){ player.teamname = req.body.teamname; }
+      if(req.body.p_num != null){ player.p_num = req.body.p_num; }
+      if(req.body.p_name != null){ player.p_name = req.body.p_name; }
+      if(req.body.p_pos != null){ player.p_pos = req.body.p_pos; }
+      if(req.body.p_image != null){ player.p_image = req.body.p_image; }
+      
+      player.save().then(emp => {
+        res.json({
+          _id: player._id,
+          teamname: player.teamname,
+          p_num: player.p_num,
+          p_name: player.p_name,
+          p_pos: player.p_pos,
+          p_image: player.p_image,
+        });
+      }).catch(err => {
+        res.status(400).send("Unable to update player");
+      });
+    }
+  });
+});
+
 module.exports = router;

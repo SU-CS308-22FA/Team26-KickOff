@@ -7,13 +7,22 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import MainScreen from "../components/MainScreen";
-import "../styles/Profile.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile, deleteUser } from "../actions/userActions";
 import Loading from "../components/Loading";
 import ErrorMessage from "../components/ErrorMessage";
 import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material"
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import 'bootstrap/dist/css/bootstrap.css';
+import "../styles/Profile.css";
+import {
+	MDBDropdown,
+	MDBDropdownMenu,
+	MDBDropdownToggle,
+	MDBDropdownItem,
+} from 'mdb-react-ui-kit';
 
 const Profile = () => {
 	const [username, setUserName] = useState("");
@@ -21,9 +30,12 @@ const Profile = () => {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [image, setImage] = useState("");
+	const [supportedTeam, setSupportedTeam] = useState("");
+	const [imageFormat, setImageFormat] = useState(false);
 
 	const [open, setOpen] = React.useState(false);
 	const [openPicture, setOpenPicture] = useState(false);
+	const [openDropDown, setOpenDropDown] = useState(false);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -37,12 +49,15 @@ const Profile = () => {
 	const userDelete = useSelector((state) => state.userDelete);
 	const { loadingUserDelete, errorUserDelete, successUserDelete } = userDelete;
 
+
+
 	useEffect(() => {
 		if (!userInfo) {
 			navigate("/");
 		} else {
 			setUserName(userInfo.username);
 			setEmail(userInfo.email);
+			setSupportedTeam(userInfo.supportedTeam);
 		}
 	}, [navigate, userInfo]);
 
@@ -52,8 +67,31 @@ const Profile = () => {
 	};
 	const submitPicture = (e) => {
 		e.preventDefault();
-		dispatch(updateProfile({image}));
+		if (validURL(image)) {
+			setImageFormat(false);
+			dispatch(updateProfile({ image }));
+		}
+		else {
+			setImageFormat(true);
+		}
 		handleClosePicture();
+	}
+	const handleSupportTeam = (supportedTeam) => {
+		dispatch(updateProfile({ supportedTeam }));
+	}
+	function settingTeam(str) {
+		setSupportedTeam(str);
+		handleSupportTeam();
+	}
+
+	function validURL(str) {
+		var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+			'((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+			'((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+			'(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+			'(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+			'(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+		return !!pattern.test(str);
 	}
 
 	const deleteUserHandler = () => {
@@ -74,9 +112,13 @@ const Profile = () => {
 	const handleClosePicture = () => {
 		setOpenPicture(false);
 	};
+	const handleOpen = () => {
+		setOpenDropDown(!openDropDown);
+	};
+
 
 	return (
-		<MainScreen title="EDIT INFORMATIONS">
+		<MainScreen title="">
 			<div>
 				<Row className="profileContainer">
 					<Col md={12}>
@@ -103,8 +145,12 @@ const Profile = () => {
 									{errorUserDelete}
 								</ErrorMessage>
 							)}
+							{imageFormat ?
+								<ErrorMessage variant="danger">
+									Please enter valid URL
+								</ErrorMessage> : null}
 							<img
-								src={userInfo.image ? userInfo.image: "https://cdn-icons-png.flaticon.com/512/18/18601.png"}
+								src={userInfo.image ? userInfo.image : "https://cdn-icons-png.flaticon.com/512/18/18601.png"}
 								alt="account upload"
 								width={150}
 								height={150}
@@ -147,6 +193,24 @@ const Profile = () => {
 									</Button>
 								</DialogActions>
 							</Dialog>
+
+							<div className="d-flex" style={{
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+							}}>
+
+								<DropdownButton
+									alignRight
+									title={userInfo.supportedTeam ? userInfo.supportedTeam : "Select your team"}
+									id="supportedTeam"
+									onSelect={handleSupportTeam}>
+									<Dropdown.Item eventKey="Beşiktaş">Beşiktaş</Dropdown.Item>
+									<Dropdown.Item eventKey="Galatasaray">Galatasaray</Dropdown.Item>
+									<Dropdown.Item eventKey="Fenerbahçe">Fenerbahçe</Dropdown.Item>
+									<Dropdown.Item eventKey="Trabzonspor">Trabzonspor</Dropdown.Item>
+								</DropdownButton>
+							</div>
 							<TextField
 								margin="normal"
 								required
