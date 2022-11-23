@@ -21,10 +21,24 @@ export default function Navbar() {
         <nav className="nav">
             <Link to="/" className="site-title">
                 KickOff
-        </Link>
+            </Link>
             {userInfo
                 ?
                 <ul>
+
+                    <CustomLink to="/players">
+                        Players
+                    </CustomLink>
+                    <CustomLink to="/teams">
+                        Teams
+                    </CustomLink>
+                    <CustomLink to="/profile">
+                        Profile
+                    </CustomLink>
+                    <CustomLink to="/" onClick={handleSubmit}>
+                        Logout
+                    </CustomLink>
+
                     <CustomLink to="/profile">
                         Profile
                 </CustomLink>
@@ -41,14 +55,15 @@ export default function Navbar() {
                         : null}
 
                         
+
                 </ul>
                 : <ul>
                     <CustomLink to="/login">
                         Login
-            </CustomLink>
+                    </CustomLink>
                     <CustomLink to="/signup">
                         Sign Up
-            </CustomLink>
+                    </CustomLink>
                 </ul>
             }
         </nav>

@@ -15,7 +15,7 @@
     display: flexbox;
     padding: 0px;
     align-items: left;
-    flex-direction: rocolumnw;
+    flex-direction: column;
   }
   
   .user p {
