@@ -2,9 +2,12 @@ import Navbar from "./navigationbar/navigationbar";
 import Login from "./pages/login";
 import Update from "./pages/update";
 import Homepage from "./pages/home";
-import { Route, Routes, useNavigate } from "react-router-dom"
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Signup from "./pages/signup";
+
 import Profile from "./pages/Profile";
+import Matches from "./pages/matches";
+
 import Todo from "./components/Todo";
 import Team from "./pages/Team";
 import Player from "./pages/Players";
@@ -27,6 +30,7 @@ function App() {
           <Route path="/teams" element={<Team />} />
           <Route path="/players" element={<Player />} />
           <Route path="/todo" element={<Todo />} />
+          <Route path="/matches" element={<Matches />} />
         </Routes>
       </div>
     </>

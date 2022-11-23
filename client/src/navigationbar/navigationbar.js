@@ -32,19 +32,20 @@ export default function Navbar() {
                     <CustomLink to="/teams">
                         Teams
                     </CustomLink>
-                    <CustomLink to="/profile">
-                        Profile
-                    </CustomLink>
-                    <CustomLink to="/" onClick={handleSubmit}>
-                        Logout
-                    </CustomLink>
+
+
 
                     <CustomLink to="/profile">
                         Profile
                 </CustomLink>
+
+                <CustomLink to="/matches">
+                    Matches
+                </CustomLink>
+                
                     <CustomLink to="/" onClick={handleSubmit}>
                         Logout
-                </CustomLink>
+                    </CustomLink>
                 
 
 
