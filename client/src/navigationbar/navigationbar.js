@@ -25,6 +25,7 @@ export default function Navbar() {
             {userInfo
                 ?
                 <ul>
+
                     <CustomLink to="/players">
                         Players
                     </CustomLink>
@@ -37,6 +38,24 @@ export default function Navbar() {
                     <CustomLink to="/" onClick={handleSubmit}>
                         Logout
                     </CustomLink>
+
+                    <CustomLink to="/profile">
+                        Profile
+                </CustomLink>
+                    <CustomLink to="/" onClick={handleSubmit}>
+                        Logout
+                </CustomLink>
+                
+
+
+                    {userInfo.isAdmin ?
+                        <CustomLink to="/update">
+                            Delete Users
+                            </CustomLink>
+                        : null}
+
+                        
+
                 </ul>
                 : <ul>
                     <CustomLink to="/login">
