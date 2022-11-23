@@ -8,6 +8,7 @@ const bcrypt = require("bcrypt");
 const asyncHandler = require("express-async-handler")
 const expressFormidable = require("express-formidable")
 const Team = require('../models/team');
+const Player = require('../models/player');
 
 
 
@@ -250,6 +251,75 @@ router.route("/updateTeam/:id").post(async function(req,res,next) {
         });
       }).catch(err => {
         res.status(400).send("Unable to update team");
+      });
+    }
+  });
+});
+
+
+//player apis
+
+// Get players
+router.get("/players", asyncHandler(async (req,res) => {
+  const players = await Player.find();
+  res.send(players);
+ }));
+
+ //get player by id
+router.get(
+  "/players/:id",
+  isValidObjectId,
+  asyncHandler(async (req,res) => {
+    const player = await Player.findById(req.params.id);
+    res.send(player);
+  })
+ );
+
+ // post player
+router.post('/player', (req, res, next) => {
+  if (req.body.teamname && req.body.p_num && req.body.p_name && req.body.p_pos && req.body.p_image) {
+    Player.create(req.body).then((data) => res.json(data)).catch(next);
+  }
+  else {
+    res.json({
+      error: 'The input field is missing',
+    });
+  }
+})
+// delete player
+router.delete('/player/:id', (req, res, next) => {
+  Player.findOneAndDelete({_id: req.params.id})
+  .then((data) => res.json(data))
+  .catch(next);
+})
+
+router.get(
+  ""
+);
+
+//update player
+router.route("/updatePlayer/:id").post(async function(req,res,next) {
+  Player.findById(req.params.id, async function(err, player){
+    if(!player) { return next(new Error("Unable to find player with this id"))}
+    else {
+      
+      if(req.body.teamname != null){ player.teamname = req.body.teamname; }
+      if(req.body.p_num != null){ player.p_num = req.body.p_num; }
+      if(req.body.p_name != null){ player.p_name = req.body.p_name; }
+      if(req.body.p_pos != null){ player.p_pos = req.body.p_pos; }
+      if(req.body.p_image != null){ player.p_image = req.body.p_image; }
+      
+      player.save().then(emp => {
+        res.json({
+          _id: player._id,
+          teamname: player.teamname,
+          p_num: player.p_num,
+          p_name: player.p_name,
+          p_pos: player.p_pos,
+          p_image: player.p_image,
+        });
+      }).catch(err => {
+        res.status(400).send("Unable to update player");
       });
     }
   });

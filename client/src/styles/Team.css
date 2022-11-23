@@ -1,8 +1,9 @@
 .teamsList {
-display: flex;
-  align-items: center;
-  flex-direction: column;
+  display:flex;
+  align-items:center;
+  flex-direction: row;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .team {
@@ -30,4 +31,19 @@ display: flex;
 
 .headline {
   color: #03396c;
+}
+
+.button {
+  align-items: center;
+}
+
+.search {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.toget {
+  display: flex;
+  flex-direction: row;
 }

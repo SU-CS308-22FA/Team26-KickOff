@@ -25,6 +25,9 @@ export default function Navbar() {
             {userInfo
                 ?
                 <ul>
+                    <CustomLink to="/players">
+                        Players
+                    </CustomLink>
                     <CustomLink to="/teams">
                         Teams
                     </CustomLink>
@@ -36,9 +39,6 @@ export default function Navbar() {
                     </CustomLink>
                 </ul>
                 : <ul>
-                    <CustomLink to="/teams">
-                        Teams
-                    </CustomLink>
                     <CustomLink to="/login">
                         Login
                     </CustomLink>

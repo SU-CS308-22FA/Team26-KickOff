@@ -7,6 +7,7 @@ import Signup from "./pages/signup";
 import Profile from "./pages/Profile";
 import Todo from "./components/Todo";
 import Team from "./pages/Team";
+import Player from "./pages/Players";
 import { useDispatch, useSelector} from "react-redux";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/teams" element={<Team />} />
+          <Route path="/players" element={<Player />} />
           <Route path="/todo" element={<Todo />} />
         </Routes>
       </div>
