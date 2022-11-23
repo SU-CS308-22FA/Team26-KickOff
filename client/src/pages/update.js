@@ -1,5 +1,11 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import Axios from 'axios';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 import {
 	USER_DELETE_FAIL,
 	USER_DELETE_REQUEST,
@@ -24,7 +30,9 @@ export default function Update() {
     const [password, setPassword] = useState("");
     const [userList, setUserList] = useState([]);
     const [newPassword, setNewPassword] = useState("");
-  
+    const [open, setOpen] = React.useState(false);
+    const [id, setId] = useState("");
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -34,9 +42,18 @@ export default function Update() {
         setUserList(response.data);
       });
     };
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+    };
+    function handleOpen (_id) {
+      handleClickOpen();
+      setId(_id);
+    }
 
-
-    async function triggerDelete (_id) {
+    async function triggerDelete () {
       try {
         dispatch({ type: USER_DELETE_REQUEST });
         /*
@@ -50,13 +67,16 @@ export default function Update() {
             Authorization: `Bearer ${userInfo.token}`,
           },
         };*/
-        
-        const API = "/api/user/" + _id;
-        const { data } = await Axios.delete(API);
-    
-        dispatch({ type: USER_DELETE_SUCCESS, payload: data });
-    
-    
+        handleClose();
+        if (id === "637c13b3795d46a526d7bb46"){
+          
+        }
+        else {
+          const API = "/api/user/" + id;
+          const { data } = await Axios.delete(API);
+      
+          dispatch({ type: USER_DELETE_SUCCESS, payload: data });
+        }
       } catch (error) {
         dispatch({
           type: USER_DELETE_FAIL,
@@ -82,8 +102,28 @@ export default function Update() {
                 <p>{val.email}</p>
 
                 <p> {" "}</p>
-                <button className='Button'  onClick={() => triggerDelete(val._id)}>Delete</button>
-                
+                <button className='Button'  onClick={() => handleOpen(val._id)}>Delete Account</button>
+                <Dialog
+										open={open}
+										onClose={handleClose}
+										aria-labelledby="alert-dialog-title"
+										aria-describedby="alert-dialog-description"
+									>
+										<DialogTitle id="alert-dialog-title">
+											{"Delete account?"}
+										</DialogTitle>
+										<DialogContent>
+											<DialogContentText id="alert-dialog-description">
+												Are you sure you want to delete the account?
+									</DialogContentText>
+										</DialogContent>
+										<DialogActions>
+											<Button onClick={handleClose}>No</Button>
+											<Button onClick={() => triggerDelete()} autoFocus>
+												Yes
+									</Button>
+										</DialogActions>
+									</Dialog>
               </div>
             );
           })}
