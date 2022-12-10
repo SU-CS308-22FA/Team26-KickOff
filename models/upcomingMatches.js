@@ -13,5 +13,5 @@ const upcomingmatchSchema = mongoose.Schema(
     }, {timestamps: true}
 );
 
-const upcomingMatch = mongoose.model('upcomingMatch', upcomingmatchSchema);
-module.exports = upcomingMatch;
+const UpcomingMatch = mongoose.model('UpcomingMatch', upcomingmatchSchema);
+module.exports = UpcomingMatch;

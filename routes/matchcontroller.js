@@ -90,7 +90,7 @@ router.get('/matches', asyncHandler(async(req, res) => {
         error: 'The input field is missing',
       });
     }
-})
+});
 router.delete('/matches/:id', (req, res, next) => {
     Match.findOneAndDelete({ _id: req.params.id })
       .then((data) => res.json(data))
