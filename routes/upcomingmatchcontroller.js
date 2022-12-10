@@ -19,7 +19,7 @@ router.get('/upcomingmatches', asyncHandler(async(req, res) => {
         && req.body.dateU 
         ) {
       upcomingMatch.create(req.body).then((data) => res.json(data)).catch(next);
-      const dbUpcomingMatch = new Match ({
+      const dbUpcomingMatch = new upcomingMatch ({
         hometeamU: upcomingmatch.hometeamU,
         awayteamU: upcomingmatch.awayteamU,
         stadiumnameU: upcomingmatch.stadiumnameU,
@@ -46,20 +46,20 @@ router.route("/updateUpcomingMatch/:id").post(async function(req,res,next) {
       if(!upcomingmatch) { return next(new Error("Unable to find upcoming match with this id"))}
       else {
         
-        if(req.body.hometeamU != null){ match.hometeamU = req.body.hometeamU; }
-        if(req.body.awayteamU != null){ match.awayteamU = req.body.awayteamU; }
-        if(req.body.stadiumnameU != null){ match.stadiumnameU = req.body.stadiumnameU; }
-        if(req.body.refereenameU != null){ match.refereenameU = req.body.refereenameU; }
-        if(req.body.dateU != null){ match.dateU = req.body.dateU; }
+        if(req.body.hometeamU != null){ upcomingmatch.hometeamU = req.body.hometeamU; }
+        if(req.body.awayteamU != null){ upcomingmatch.awayteamU = req.body.awayteamU; }
+        if(req.body.stadiumnameU != null){ upcomingmatch.stadiumnameU = req.body.stadiumnameU; }
+        if(req.body.refereenameU != null){ upcomingmatch.refereenameU = req.body.refereenameU; }
+        if(req.body.dateU != null){ upcomingmatch.dateU = req.body.dateU; }
 
         upcomingmatch.save().then(emp => {
           res.json({
-            _id: match._id,
-            hometeamU: match.hometeamU,
-            awayteamU: match.awayteamU,
-            stadiumnameU: match.stadiumnameU,
-            refereenameU: match.refereenameU,
-            dateU: match.dateU,
+            _id: upcomingmatch._id,
+            hometeamU: upcomingmatch.hometeamU,
+            awayteamU: upcomingmatch.awayteamU,
+            stadiumnameU: upcomingmatch.stadiumnameU,
+            refereenameU: upcomingmatch.refereenameU,
+            dateU: upcomingmatch.dateU,
           });
         }).catch(err => {
           res.status(400).send("Unable to update upcoming match");

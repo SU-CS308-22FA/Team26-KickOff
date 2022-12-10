@@ -6,6 +6,8 @@ const matchroutes = require("./routes/matchcontroller");
 const upcomingmatchroutes = require("./routes/upcomingmatchcontroller");
 const leagueroutes = require("./routes/leaguecontroller");
 
+const newsroutes = require("./routes/newscontroller");
+
 
 require('dotenv').config();
 const app = express();
@@ -27,6 +29,8 @@ app.use('/api', routes);
 app.use('/matchcontroller', matchroutes);
 app.use('/leaguecontroller', leagueroutes);
 app.use('/upcomingmatchcontroller', upcomingmatchroutes);
+app.use('/newscontroller', newsroutes);
+
 
 
 
