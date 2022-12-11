@@ -47,6 +47,7 @@ router.get('/matches', asyncHandler(async(req, res) => {
         && req.body.accpassesAway 
         ) {
       Match.create(req.body).then((data) => res.json(data)).catch(next);
+<<<<<<< HEAD
       const dbMatch = new Match ({
         hometeam: match.hometeam,
         awayteam: match.awayteam,
@@ -83,6 +84,8 @@ router.get('/matches', asyncHandler(async(req, res) => {
         accpassesAway: match.accpassesAway,
       })
       dbMatch.save()
+=======
+>>>>>>> 77d2397 (bug fixes)
       res.json({message: "Success"})
     }
     else {
