@@ -8,11 +8,13 @@ import Signup from "./pages/signup";
 import Profile from "./pages/Profile"
 import League from "./pages/league"
 import Matches from "./pages/matches";
-import upcomingMatches from "./pages/upcomingmatches";
+import UpcomingMatches from "./pages/upcomingmatches";
 import Todo from "./components/Todo";
 import Team from "./pages/Team";
 import Player from "./pages/Players";
 import { useDispatch, useSelector} from "react-redux";
+
+
 
 function App() {
 
@@ -36,6 +38,9 @@ function App() {
 
           <Route path="/todo" element={<Todo />} />
           <Route path="/matches" element={<Matches />} />
+
+          <Route path="/upcomingmatches" element={<UpcomingMatches />} />
+
         </Routes>
       </div>
     </>

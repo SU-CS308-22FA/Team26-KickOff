@@ -11,58 +11,51 @@ import Paper from '@mui/material/Paper';
 
 export default function Matchpage() {
 
-    const [upcomingmatchesList, setMatchesList] = useState([]);
+    const [upcomingMatchesList, setUpcomingMatchesList] = useState([]);
 
     let i = 0;
     const getTeams = () => {
-      Axios.get("upcomingmatchcontroller/matches").then((response) => {setMatchesList(response.data);
+      Axios.get("upcomingmatchcontroller/upcomingmatches").then((response) => {setUpcomingMatchesList(response.data);
       });
     };
     useEffect(() => {
         getTeams();
-	}, [upcomingmatchesList]);
+	}, [upcomingMatchesList]);
 
     return (
         <>
+        <div align="center" justify-content="center">
             <h1 align="center">Upcoming Matches</h1>
-            {upcomingmatchesList.map((val,key) => (
-                <Paper elevation={12} sx={{maxWidth:1500}} width="50%"  >
-                <TableContainer  align="center" component={Paper} padding="10px"  >
-                <Table sx={{ maxWidth: 1500 }} align="center" fixedHeader={true} size="small" aria-label="a dense table">
-                <TableHead>
+            {upcomingMatchesList.map((val,key) => (
+            <Paper sx={{maxWidth:1500}} width="50%">
+              <TableContainer   component={Paper}>
+                <Table sx={{ maxWidth: 1500 }} fixedHeader={true} size="small" aria-label="a dense table">
+                  <TableHead>
                     <TableRow>
-                      <TableCell  align="center" >Date:{val.dateU}</TableCell>
-                      <TableCell align="center"></TableCell>
+                      <TableCell  align="left" >Date:{val.dateU}</TableCell>
                       <TableCell  align="center"> Stadium:{val.stadiumnameU}</TableCell>
-                      <TableCell align="center"></TableCell>
-                      <TableCell align="center"> Referee:{val.refereenameU}</TableCell>
+                      <TableCell align="right"> Referee:{val.refereenameU}</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableHead>
                     <TableRow>
-                      <TableCell  align="right" >
-                      <h2>{val.hometeamU}</h2>
-                      </TableCell>
-                      <TableCell  align="right">
-                      <h2>-</h2>
+                      <TableCell  align="left" >
+                      <h3>{val.hometeamU}</h3>
                       </TableCell>
                       <TableCell align="center">
-                      <h2>:</h2>
+                      <h3>-</h3>
                       </TableCell>
-                      <TableCell align="left">
-                      <h2>-</h2>
-                      </TableCell>
-                      <TableCell align="left">
-                      <h2>{val.awayteamU}</h2>
+
+                      <TableCell align="right">
+                      <h3>{val.awayteamU}</h3>
                       </TableCell>
                     </TableRow>
                   </TableHead>
                 </Table>
               </TableContainer>
-              <p> </p>   
-              </Paper>
-
-            ))}      
+            </Paper>
+            ))}   
+          </div>   
         </>
     )
 }
