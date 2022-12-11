@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const News = require('../models/newsDB');
+const News = require('../models/news');
 const asyncHandler = require("express-async-handler");
 
 
@@ -41,25 +41,25 @@ router.delete('/news/:id', (req, res, next) => {
       .catch(next);
 });
 
-router.route("/updateNews/:id").post(async function(req,res,next) {
+router.route("/updateNew/:id").post(async function(req,res,next) {
     News.findById(req.params.id, async function(err, dispNews){
       if(!dispNews) { return next(new Error("Unable to find upcoming new with this id"))}
       else {
         
-        if(req.body.news_title != null){ News.news_title = req.body.news_title; }
-        if(req.body.news_article != null){ News.news_article = req.body.news_article; }
-        if(req.body.news_picture != null){ News.news_picture = req.body.news_picture; }
-        if(req.body.news_author != null){ News.news_author = req.body.news_author; }
-        if(req.body.news_date != null){ News.news_date = req.body.news_date; }
+        if(req.body.news_title != null){ dispNews.news_title = req.body.news_title; }
+        if(req.body.news_article != null){ dispNews.news_article = req.body.news_article; }
+        if(req.body.news_picture != null){ dispNews.news_picture = req.body.news_picture; }
+        if(req.body.news_author != null){ dispNews.news_author = req.body.news_author; }
+        if(req.body.news_date != null){ dispNews.news_date = req.body.news_date; }
 
         dispNews.save().then(emp => {
           res.json({
-            _id: News._id,
-            news_title: News.news_title,
-            news_article: News.news_article,
-            news_picture: News.news_picture,
-            news_author: News.news_author,
-            news_date: News.news_date,
+            _id: dispNews._id,
+            news_title: dispNews.news_title,
+            news_article: dispNews.news_article,
+            news_picture: dispNews.news_picture,
+            news_author: dispNews.news_author,
+            news_date: dispNews.news_date,
           });
         }).catch(err => {
           res.status(400).send("Unable to update new");
