@@ -9,8 +9,6 @@ router.get('/upcomingmatches', asyncHandler(async(req, res) => {
     res.send(upcomingmatches);
  }));
  router.post('/upcomingmatches', (req, res, next) => {
-  const upcomingmatch = req.body;
-
   if (req.body.hometeamU && 
       req.body.awayteamU && 
       req.body.stadiumnameU && 
@@ -18,14 +16,6 @@ router.get('/upcomingmatches', asyncHandler(async(req, res) => {
       req.body.dateU
       ) {
     UpcomingMatch.create(req.body).then((data) => res.json(data)).catch(next);
-    const dbUpcomingMatch = new UpcomingMatch ({
-      hometeamU: upcomingmatch.hometeamU,
-      awayteamU: upcomingmatch.awayteamU,
-      stadiumnameU: upcomingmatch.stadiumnameU,
-      refereenameU: upcomingmatch.refereenameU,
-      dateU: upcomingmatch.dateU,
-    })
-    dbUpcomingMatch.save()
     res.json({message: "Success"})
   }
   else {
