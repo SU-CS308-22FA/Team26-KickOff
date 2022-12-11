@@ -19,14 +19,6 @@ router.get('/news', asyncHandler(async(req, res) => {
         && req.body.news_date 
         ) {
       News.create(req.body).then((data) => res.json(data)).catch(next);
-      const dbNews = new News ({
-        news_title: dispNews.news_title,
-        news_article: dispNews.news_article,
-        news_picture: dispNews.news_picture,
-        news_author: dispNews.news_author,
-        news_date: dispNews.news_date,
-      })
-      dbNews.save()
       res.json({message: "Success"})
     }
     else {
