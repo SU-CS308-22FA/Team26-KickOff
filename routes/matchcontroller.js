@@ -8,6 +8,26 @@ router.get('/matches', asyncHandler(async(req, res) => {
     const matches = await Match.find();
     res.send(matches);
  }));
+ router.get(
+  "/matches/:id",
+  asyncHandler(async (req,res) => {
+    const match = await Match.findById(req.params.id);
+    res.send(match);
+  })
+ );
+ const commentMatch = async (req,res) => {
+   const { id } = req.params;
+   const { value } = req.body;
+
+   const match = await Match.findById(id);
+
+   match.comments.push(value);
+
+   const updatedMatch = await Match.findByIdAndUpdate(id, match, {new:true});
+
+   res.json(updatedMatch);
+ }
+ router.post('/:id/commentMatch', commentMatch);
 
  router.post('/matches', (req, res, next) => {
     const match = req.body;
