@@ -8,6 +8,26 @@ router.get('/matches', asyncHandler(async(req, res) => {
     const matches = await Match.find();
     res.send(matches);
  }));
+ router.get(
+  "/matches/:id",
+  asyncHandler(async (req,res) => {
+    const match = await Match.findById(req.params.id);
+    res.send(match);
+  })
+ );
+ const commentMatch = async (req,res) => {
+   const { id } = req.params;
+   const { value } = req.body;
+
+   const match = await Match.findById(id);
+
+   match.comments.push(value);
+
+   const updatedMatch = await Match.findByIdAndUpdate(id, match, {new:true});
+
+   res.json(updatedMatch);
+ }
+ router.post('/:id/commentMatch', commentMatch);
 
  router.post('/matches', (req, res, next) => {
     const match = req.body;
@@ -47,42 +67,6 @@ router.get('/matches', asyncHandler(async(req, res) => {
         && req.body.accpassesAway 
         ) {
       Match.create(req.body).then((data) => res.json(data)).catch(next);
-      const dbMatch = new Match ({
-        hometeam: match.hometeam,
-        awayteam: match.awayteam,
-        stadiumname: match.stadiumname,
-        refereename: match.refereename,
-        date: match.date,
-        firsthalfscoreHome: match.firsthalfscoreHome,
-        firsthalfscoreAway: match.firsthalfscoreAway,
-        secondhalfscoreHome: match.secondhalfscoreHome,
-        secondhalfscoreAway: match.secondhalfscoreAway,
-        ballpossesionHome: match.ballpossesionHome,
-        ballpossesionAway: match.ballpossesionAway,
-        totalshotsHome: match.totalshotsHome,
-        totalshotsAway: match.totalshotsAway,
-        shotsonbarHome: match.shotsonbarHome,
-        shotsonbarAway: match.shotsonbarAway,
-        shotsontargetHome: match.shotsontargetHome,
-        shotsontargetAway: match.shotsontargetAway,
-        cornerkicksHome: match.cornerkicksHome,
-        cornerkicksAway: match.cornerkicksAway,
-        offsidesHome: match.offsidesHome,
-        offsidesAway: match.offsidesAway,
-        foulsHome: match.foulsHome,
-        foulsAway: match.foulsAway,
-        yellowcardsHome: match.yellowcardsHome,
-        yellowcardsAway: match.yellowcardsAway,
-        redcardsHome: match.redcardsHome,
-        redcardsAway: match.redcardsAway,
-        goalsavesHome: match.goalsavesHome,
-        goalsavesAway: match.goalsavesAway,
-        passesHome: match.passesHome,
-        passesAway: match.passesAway,
-        accpassesHome: match.accpassesHome,
-        accpassesAway: match.accpassesAway,
-      })
-      dbMatch.save()
       res.json({message: "Success"})
     }
     else {
@@ -90,7 +74,12 @@ router.get('/matches', asyncHandler(async(req, res) => {
         error: 'The input field is missing',
       });
     }
+
 });
+
+})
+
+
 router.delete('/matches/:id', (req, res, next) => {
     Match.findOneAndDelete({ _id: req.params.id })
       .then((data) => res.json(data))

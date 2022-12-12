@@ -26,20 +26,6 @@ router.get('/leagues', asyncHandler(async(req, res) => {
         req.body.averagegoals 
         ) {
       League.create(req.body).then((data) => res.json(data)).catch(next);
-      const dbLeague = new League ({
-        leaguename: league.leaguename,
-        leagueyear: league.leagueyear,
-        leagueteam: league.leagueteam,
-        teamscore: league.teamscore,
-        totalgoalsscored: league.totalgoalsscored,
-        totalgoalsconceded: league.totalgoalsconceded,
-        matchesplayed: league.matchesplayed,
-        matcheswon: league.matcheswon,
-        matcheslost: league.matcheslost,
-        matchestied: league.matchestied,
-        averagegoals: league.averagegoals,
-      })
-      dbLeague.save()
       res.json({message: "Success"})
     }
     else {
