@@ -53,6 +53,14 @@ export default function Navbar() {
                         Compare Teams
                     </CustomLink>
 
+                    <CustomLink to="/upcomingmatches">
+                        Upcoming Matches
+                    </CustomLink>
+
+                    <CustomLink to="/newspage">
+                        News
+                    </CustomLink>
+
 
                     <CustomLink to="/" onClick={handleSubmit}>
                         Logout
