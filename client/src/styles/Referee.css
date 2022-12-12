@@ -6,6 +6,10 @@
     flex-wrap: wrap;
     
   }
+  .cardexample {
+    width: 500;
+    height: 700;
+  }
   
   .referee {
     width: 400px;
