@@ -164,10 +164,10 @@ export default function Referees() {
 
 
                 {refereeList.map((val, key) => {
-                    if (val.class == select) {
+                    if (val.class === select) {
                         return (
                             <ol className="referee" key={val.id} >
-                                <Card sx={{ maxWidth: 500 }}>
+                                <Card sx={{ width: 400, height: 600 }}>
                                     <CardMedia
                                         component="img"
                                         height="200"
