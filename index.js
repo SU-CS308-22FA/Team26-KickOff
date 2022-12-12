@@ -5,6 +5,7 @@ const routes = require('./routes/api');
 const matchroutes = require("./routes/matchcontroller");
 const upcomingmatchroutes = require("./routes/upcomingmatchcontroller");
 const leagueroutes = require("./routes/leaguecontroller");
+const refereeroutes = require("./routes/refereecontroller");
 
 const newsroutes = require("./routes/newscontroller");
 
@@ -33,6 +34,7 @@ app.use('/newscontroller', newsroutes);
 
 
 
+app.use('/refereecontroller', refereeroutes);
 
 app.use((err, req, res, next) => {
   console.log(err);

@@ -38,6 +38,7 @@ const matchSchema = mongoose.Schema(
         passesAway: {type: String, required: true},
         accpassesHome: {type: String, required: true},
         accpassesAway: {type: String, required: true},
+        comments: { type: [String], default: []}
 
     }, {timestamps: true}
 );
