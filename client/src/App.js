@@ -5,11 +5,13 @@ import Homepage from "./pages/home";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Signup from "./pages/signup";
 import Profile from "./pages/Profile"
+import Referee from "./pages/referee"
 import League from "./pages/league"
 import Matches from "./pages/matches";
 import Todo from "./components/Todo";
 import Team from "./pages/Team";
 import Player from "./pages/Players";
+import TeamComparison from "./pages/team_comparison"
 import { useDispatch, useSelector} from "react-redux";
 
 function App() {
@@ -31,9 +33,11 @@ function App() {
 
           <Route path="/teams" element={<Team />} />
           <Route path="/players" element={<Player />} />
+          <Route path="/referees" element={<Referee />} />
 
           <Route path="/todo" element={<Todo />} />
           <Route path="/matches" element={<Matches />} />
+          <Route path="/team_comparison" element={<TeamComparison />} />
         </Routes>
       </div>
     </>

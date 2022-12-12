@@ -36,28 +36,37 @@ export default function Navbar() {
 
                     <CustomLink to="/profile">
                         Profile
-                </CustomLink>
-                <CustomLink to="/league">
-                    League
-                </CustomLink>
+                    </CustomLink>
+                    <CustomLink to="/league">
+                        League
+                    </CustomLink>
 
-                <CustomLink to="/matches">
-                    Matches
-                </CustomLink>
-                
+                    <CustomLink to="/referees">
+                        Referees
+                    </CustomLink>
+
+                    <CustomLink to="/matches">
+                        Matches
+                    </CustomLink>
+
+                    <CustomLink to="/team_comparison">
+                        Compare Teams
+                    </CustomLink>
+
+
                     <CustomLink to="/" onClick={handleSubmit}>
                         Logout
                     </CustomLink>
-                
+
 
 
                     {userInfo.isAdmin ?
                         <CustomLink to="/update">
                             Delete Users
-                            </CustomLink>
+                        </CustomLink>
                         : null}
 
-                        
+
 
                 </ul>
                 : <ul>
