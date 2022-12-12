@@ -56,17 +56,7 @@ export default function Update() {
     async function triggerDelete () {
       try {
         dispatch({ type: USER_DELETE_REQUEST });
-        /*
-        const {
-          userLogin: { userInfo },
-        } = getState();
-    
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${userInfo.token}`,
-          },
-        };*/
+
         handleClose();
         if (id === "637c13b3795d46a526d7bb46"){
           
