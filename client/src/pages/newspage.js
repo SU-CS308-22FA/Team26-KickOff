@@ -25,9 +25,9 @@ export default function ControlledAccordions() {
   }, [newsList]);
 
   return (
-    <div  expanded={expanded === 'panel1'} onChange={handleChange('panel1')} sx={{maxWidth: 1200}}>
-      <p>  </p>
-      <p>  </p>
+    <div expanded={expanded === 'panel1'} onChange={handleChange('panel1')} sx={{maxWidth: 1200}}>
+      <p></p>
+      <p></p>
       <h1 align="center"> News </h1>
       <p></p>
       <p></p>
