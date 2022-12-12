@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const routes = require('./routes/api');
 const matchroutes = require("./routes/matchcontroller");
 const leagueroutes = require("./routes/leaguecontroller");
+const refereeroutes = require("./routes/refereecontroller");
 
 
 require('dotenv').config();
@@ -25,7 +26,7 @@ app.use(bodyParser.json());
 app.use('/api', routes);
 app.use('/matchcontroller', matchroutes);
 app.use('/leaguecontroller', leagueroutes);
-
+app.use('/refereecontroller', refereeroutes);
 
 app.use((err, req, res, next) => {
   console.log(err);
