@@ -9,6 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import CommentMatch from '../components/CommentMatch';
 
 export default function Matchpage() {
 
@@ -153,6 +154,7 @@ export default function Matchpage() {
                   
                 </Table>
               </TableContainer>
+              <CommentMatch match = {val}/>
               <p> </p>   
               </Paper>
 
