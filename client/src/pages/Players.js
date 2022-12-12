@@ -3,6 +3,12 @@ import "../styles/Team.css";
 import Button from '@mui/material/Button';
 import React, { useState } from "react";
 import Axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 /*
 class Players extends React.Component {
 
@@ -73,31 +79,65 @@ export default function Players() {
             setPlayerList(response.data);
         });
     };
+    const [open, setOpen] = React.useState(false);
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
+    const [id, setId] = useState("");
+    const dispatch = useDispatch();
 
     const handleChange = (e) => {
         setInput(e.target.value);
-      };
+    };
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+    function handleOpen(_id) {
+        handleClickOpen();
+        setId(_id);
+    }
+    async function triggerDelete() {
+        try {
+            const API = "/api/player/" + id;
+            const { data } = await Axios.delete(API);
+
+            getPlayer();
+            handleClose();
+            dispatch({ type: "PLAYER_DELETE_SUCCESS", payload: data });
+
+        } catch (error) {
+            dispatch({
+                type: "PLAYER_DELETE_FAIL",
+                payload:
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message,
+            });
+        }
+    }
 
     return (
         <div>
             <div className="search">
                 <p></p>
-            <div className="toget">
-            <form >
-                    Enter team name 
-                    &nbsp;
+                <div className="toget">
+                    <form >
+                        Enter team name
+                        &nbsp;
                     <input type="text" onChange={handleChange}></input>
-                </form>
+                    </form>
                 &nbsp; &nbsp;
                 <button className="search" onClick={getPlayer}>Show Players</button>
                 </div>
                 <p></p>
-                </div>
+            </div>
             <div className="teamsList">
 
 
                 {playerList.map((val, key) => {
-                    if (val.teamname == input) {
+                    if (val.teamname === input) {
                         return (
                             <ol className="team" key={val.id} >
                                 <p><img
@@ -110,6 +150,35 @@ export default function Players() {
                                 <h1 className="stadium">{val.p_num} - {val.p_name}</h1>
                                 <p className="teamName">{val.teamname}</p>
                                 <p className="stadium">Position: {val.p_pos}</p>
+                                <div>
+                                {userInfo.isAdmin && (
+                                    <div>
+                                        <button onClick={() => handleOpen(val._id)}>Delete Player</button>
+                                        <Dialog
+                                            open={open}
+                                            onClose={handleClose}
+                                            aria-labelledby="alert-dialog-title"
+                                            aria-describedby="alert-dialog-description"
+                                        >
+                                            <DialogTitle id="alert-dialog-title">
+                                                {"Delete player?"}
+                                            </DialogTitle>
+                                            <DialogContent>
+                                                <DialogContentText id="alert-dialog-description">
+                                                    Are you sure you want to delete the player?
+									</DialogContentText>
+                                            </DialogContent>
+                                            <DialogActions>
+                                                <Button onClick={handleClose}>No</Button>
+                                                <Button onClick={() => triggerDelete()} autoFocus>
+                                                    Yes
+									</Button>
+                                            </DialogActions>
+                                        </Dialog>
+                                    </div>
+                                )}
+                                </div>
+                                
                             </ol>
                         );
                     }
