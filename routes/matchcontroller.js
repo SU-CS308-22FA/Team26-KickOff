@@ -75,6 +75,7 @@ router.get('/matches', asyncHandler(async(req, res) => {
       });
     }
 })
+
 router.delete('/matches/:id', (req, res, next) => {
     Match.findOneAndDelete({ _id: req.params.id })
       .then((data) => res.json(data))
