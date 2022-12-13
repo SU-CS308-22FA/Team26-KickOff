@@ -16,6 +16,9 @@ export default function ControlledAccordions() {
   const [newsList, setNewsList] = useState([]);
 
   let i = 0;
+  /**
+   * This function get news from database and put them in a list named newsList
+   */
   const getTeams = () => {
     Axios.get("newscontroller/news").then((response) => {setNewsList(response.data);
     });

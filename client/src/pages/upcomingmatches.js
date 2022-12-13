@@ -14,6 +14,9 @@ export default function Matchpage() {
     const [upcomingMatchesList, setUpcomingMatchesList] = useState([]);
 
     let i = 0;
+    /**
+     * This function get upcoming matches from database and put them in a list named upcomingMatchesList
+     */
     const getTeams = () => {
       Axios.get("upcomingmatchcontroller/upcomingmatches").then((response) => {setUpcomingMatchesList(response.data);
       });
