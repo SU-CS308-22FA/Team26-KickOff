@@ -39,10 +39,21 @@ export default function Matchpage() {
       const handleClose = () => {
             setOpen(false);
       };
+
+      /**
+       * This function handle deleting matches.
+       * Sets Id as an Id of a match that will be deleted.
+       * @param {string} _id id of a match
+       */
       function handleOpen(_id) {
             handleClickOpen();
             setId(_id);
       }
+
+      /**
+       * This function handles clicking "Delete Match" button
+       * Deletes match with id then gets matches from database again.
+       */
       async function triggerDelete() {
             try {
                   const API = "/matchcontroller/matches/" + id;

@@ -94,10 +94,21 @@ export default function Players() {
     const handleClose = () => {
         setOpen(false);
     };
+
+      /**
+       * This function handle deleting player.
+       * Sets Id as an Id of a player that will be deleted.
+       * @param {string} _id id of a player
+       */    
     function handleOpen(_id) {
         handleClickOpen();
         setId(_id);
     }
+
+      /**
+       * This function handles clicking "Delete Player" button
+       * Deletes player with id then gets player from database again.
+       */   
     async function triggerDelete() {
         try {
             const API = "/api/player/" + id;

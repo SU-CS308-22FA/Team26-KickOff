@@ -17,7 +17,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 
-
+/**
+ * This function handles login event by dispatching user
+ * @param {string} username of an user that tries to log in
+ * @param {string} password of an user that tries to log in
+ */
 export const login = (username, password) => async (dispatch) => {
     try {
       dispatch({type: USER_LOGIN_REQUEST});

@@ -32,7 +32,11 @@ useEffect(() => {
     navigate("/profile");
   }
 }, []);
-
+/**
+ * This funciton handles login event by sending username, password
+ * to login action.
+ * @param {event} event of login.
+ */
 const handleSubmit = (event) => {
   event.preventDefault();
   dispatch(login(username, password));
