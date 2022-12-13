@@ -17,6 +17,12 @@ import {
 } from "../constants/userConstants";
 import { useDispatch, useSelector } from "react-redux";
 
+
+/**
+ * This function adds database to comment on the match with given id.
+ * @param {string} value the comment that will be posted on match.
+ * @param {*string} id id of the match that will be commented on.
+ */
 export const commentPost = (value, id) => async (dispatch) => {
     try {
         const API = '/matchcontroller/' + id + '/commentMatch';

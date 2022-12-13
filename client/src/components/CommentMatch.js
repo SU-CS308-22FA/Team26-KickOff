@@ -17,6 +17,11 @@ const CommentMatch = ({ match }) => {
     const commentsRef = useRef();
 
 
+    /**
+     * This function handles comment event when user enters comment.
+     * If comment length is no longer than 50 characters it sets
+     * comment list.
+     */
     const handleClick = async () => {
 
         if (comment.length > 50) {

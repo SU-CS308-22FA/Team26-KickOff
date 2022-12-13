@@ -16,6 +16,9 @@ export default function ControlledAccordions() {
   const [newsList, setNewsList] = useState([]);
 
   let i = 0;
+  /**
+   * This function get news from database and put them in a list named newsList
+   */
   const getTeams = () => {
     Axios.get("newscontroller/news").then((response) => {setNewsList(response.data);
     });
@@ -25,29 +28,35 @@ export default function ControlledAccordions() {
   }, [newsList]);
 
   return (
-    <div  expanded={expanded === 'panel1'} onChange={handleChange('panel1')} sx={{maxWidth: 1200}}>
+    <div expanded={expanded === 'panel1'} onChange={handleChange('panel1')} sx={{maxWidth: 1200}}>
+      <p></p>
+      <p></p>
+      <h1 align="center"> News </h1>
+      <p></p>
+      <p></p>
+      <p></p>
     {newsList.map((val,key) => (
         <div justify-content="center" align="center" >
             <img
 				src={val.news_picture ? val.news_picture : "https://cdn-icons-png.flaticon.com/512/18/18601.png"}
 				alt="news image for heading"
                 border-radius= {8}
-				width={1200}
+				width={800}
 				height={300}
                 
 			/>
-        <Accordion sx={{maxWidth: 1200}}>
+        <Accordion sx={{maxWidth: 800}}>
             <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1bh-content"
             id="panel1bh-header"
             >
-            <Typography sx={{ width: '50%', flexShrink: 0 }}>
+            <Typography sx={{ width: '80%', flexShrink: 0 }}>
                 <h3 align="left">{val.news_title}</h3>
             </Typography>
             </AccordionSummary>
             <AccordionDetails>
-            <Typography align="right" sx={{ color: 'text.secondary' }}>{val.news_author}</Typography>
+            <Typography align="right" sx={{ color: 'text.secondary' }}>{val.news_author} - {val.news_date}</Typography>
             <Typography align="left">{val.news_article}</Typography>
             </AccordionDetails>
         </Accordion>

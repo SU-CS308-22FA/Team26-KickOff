@@ -27,6 +27,7 @@ router.get('/news', asyncHandler(async(req, res) => {
       });
     }
 })
+
 router.delete('/news/:id', (req, res, next) => {
     News.findOneAndDelete({ _id: req.params.id })
       .then((data) => res.json(data))
