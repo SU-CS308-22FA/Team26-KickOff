@@ -16,6 +16,9 @@ export default function League() {
     const [teamsList, setTeamList] = useState([]);
 
     let i = 0;
+    /**
+     * This function get league details from database and put them in a list named teamsList
+     */
     const getTeams = () => {
       Axios.get("leaguecontroller/leagues").then((response) => {
         setTeamList(response.data);
