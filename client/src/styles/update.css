@@ -54,6 +54,11 @@
     font-size: 13px;
 
   }
+  #myButton {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 
   .staticButton{
     background-color: cornflowerblue;

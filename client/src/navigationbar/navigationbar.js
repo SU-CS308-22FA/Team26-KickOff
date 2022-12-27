@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import { Button } from "@mui/material"
 import { logout } from "../actions/userActions"
 import { useDispatch, useSelector } from "react-redux";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 export default function Navbar() {
     const dispatch = useDispatch();
@@ -67,11 +69,27 @@ export default function Navbar() {
                     </CustomLink>
 
 
-
                     {userInfo.isAdmin ?
-                        <CustomLink to="/update">
-                            Delete Users
+
+
+                        <CustomLink>
+                            <DropdownButton
+                                alignRight
+                                title="Admin Panel"
+                                id="AdminPanel">
+                                <Dropdown.Item>
+                                    <CustomLink to="/update">
+                                        Delete Users
+                                    </CustomLink>
+                                </Dropdown.Item>
+                                <Dropdown.Item>
+                                    <CustomLink to="/addPlayer">
+                                        Add Player
+                                    </CustomLink>
+                                </Dropdown.Item>
+                            </DropdownButton>
                         </CustomLink>
+
                         : null}
 
 
