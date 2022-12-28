@@ -6,6 +6,7 @@ const matchroutes = require("./routes/matchcontroller");
 const upcomingmatchroutes = require("./routes/upcomingmatchcontroller");
 const leagueroutes = require("./routes/leaguecontroller");
 const refereeroutes = require("./routes/refereecontroller");
+const stadiumsroutes = require("./routes/stadiumscontroller");
 
 const newsroutes = require("./routes/newscontroller");
 
@@ -15,7 +16,7 @@ const app = express();
 const port = process.env.PORT || 5001;
 // Connect to the database
 mongoose
-  .connect(process.env.DB, { useNewUrlParser: true })
+  .connect("mongodb+srv://user:kickoff@cluster0.nytlmne.mongodb.net/?retryWrites=true&w=majority", { useNewUrlParser: true })
   .then(() => console.log(`Database connected successfully`))
   .catch((err) => console.log(err));
 // Since mongoose's Promise is deprecated, we override it with Node's Promise
@@ -35,6 +36,9 @@ app.use('/newscontroller', newsroutes);
 
 
 app.use('/refereecontroller', refereeroutes);
+
+
+app.use('/stadiumscontroller', stadiumsroutes);
 
 app.use((err, req, res, next) => {
   console.log(err);
