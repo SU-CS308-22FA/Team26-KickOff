@@ -92,11 +92,11 @@ const Homepage = () => {
                                         {userInfo.supportedTeam === val.leagueteam && (
                                             <div className='do'>
                                                 <div className='do'>
-                                                    
+
                                                     <div class="patterns">
                                                         <svg width="100%" height="100%">
                                                             <text x="50%" y="60%" text-anchor="middle"  >
-                                                            Welcome to KickOFF {userInfo.username}
+                                                                Welcome to KickOFF {userInfo.username}!
                                                             </text>
                                                         </svg>
                                                     </div>
@@ -372,6 +372,9 @@ const Homepage = () => {
                         </div>
                     )}
                 </div>
+            </div>
+            <div>
+                <footer>For bug report please contact: bturan@sabanciuniv.edu</footer>
             </div>
         </>
     )

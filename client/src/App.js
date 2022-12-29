@@ -13,6 +13,7 @@ import UpcomingMatches from "./pages/upcomingmatches";
 import Todo from "./components/Todo";
 import Team from "./pages/Team";
 import Player from "./pages/Players";
+import NewsAddDelete from "./pages/newsAddDelete"
 
 import News from "./pages/newspage";
 
@@ -52,6 +53,7 @@ function App() {
 
 
           <Route path="/newspage" element={<News />} />
+          <Route path="/newsadddelete" element={<NewsAddDelete />} />
 
           <Route path="/team_comparison" element={<TeamComparison />} />
 
