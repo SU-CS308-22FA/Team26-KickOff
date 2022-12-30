@@ -92,6 +92,16 @@ export default function Navbar() {
                                         Add Match
                                     </CustomLink>
                                 </Dropdown.Item>
+                                <Dropdown.Item>
+                                    <CustomLink to="/addTeam">
+                                        Add Team
+                                    </CustomLink>
+                                </Dropdown.Item>
+                                <Dropdown.Item>
+                                    <CustomLink to="/deleteTeam">
+                                        Delete Team
+                                    </CustomLink>
+                                </Dropdown.Item>
                             </DropdownButton>
                         </CustomLink>
 
