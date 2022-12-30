@@ -34,3 +34,22 @@ export const commentPost = (value, id) => async (dispatch) => {
         console.log(error);
     }
 }
+
+export const addMatch = (match) => async (dispatch, getState) => {
+	try {
+
+		const API = "/matchcontroller/matches";
+		const { data } = await axios.post(API, match);
+
+		dispatch({ type: "MATCH_ADD_SUCCESS", payload: data });
+
+	} catch (error) {
+		dispatch({
+			type: "MATCH_ADD_FAIL",
+			payload:
+				error.response && error.response.data.message
+					? error.response.data.message
+					: error.message,
+		});
+	}
+};

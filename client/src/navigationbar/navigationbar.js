@@ -87,6 +87,11 @@ export default function Navbar() {
                                         Add Player
                                     </CustomLink>
                                 </Dropdown.Item>
+                                <Dropdown.Item>
+                                    <CustomLink to="/addMatch">
+                                        Add Match
+                                    </CustomLink>
+                                </Dropdown.Item>
                             </DropdownButton>
                         </CustomLink>
 
