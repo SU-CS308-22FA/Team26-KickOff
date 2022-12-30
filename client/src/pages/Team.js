@@ -12,6 +12,7 @@ class Team extends React.Component {
 
         this.state = {
             items: [],
+            id: "",
             DataisLoaded: false
         };
     }
@@ -29,6 +30,7 @@ class Team extends React.Component {
                 });
             })
     }
+
     render() {
 
         const { DataisLoaded, items } = this.state;
