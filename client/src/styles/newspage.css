@@ -1,0 +1,13 @@
+.newsList {
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+}
+
+.button2 {
+    width: 800px;
+    height: 50 px;
+    margin-top: 15px;
+    color:white;
+    background-color:#03396c ;
+}
