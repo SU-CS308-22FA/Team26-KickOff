@@ -13,8 +13,12 @@ import UpcomingMatches from "./pages/upcomingmatches";
 import Todo from "./components/Todo";
 import Team from "./pages/Team";
 import Player from "./pages/Players";
-
+import PlayerAddAdmin from "./pages/playerAddAdmin";
+import MatchAddAdmin from "./pages/matchAddAdmin";
+import TeamAddAdmin from "./pages/teamAddAdmin";
+import TeamDelete from "./pages/teamAdminDelete";
 import News from "./pages/newspage";
+
 
 
 import TeamComparison from "./pages/team_comparison"
@@ -35,6 +39,12 @@ function App() {
           <Route exact path="/" element={userInfo ? (<Homepage />) : (<Login/>)} />
           <Route path="/login" element={<Login />} />
           <Route exact path="/update" element={userInfo ? userInfo.isAdmin ? (<Update/>) : (<Profile/>) : (<Login/>)} />
+          <Route exact path="/addPlayer" element={userInfo ? userInfo.isAdmin ? (<PlayerAddAdmin/>) : (<Profile/>) : (<Login/>)} />
+          <Route exact path="/addMatch" element={userInfo ? userInfo.isAdmin ? (<MatchAddAdmin/>) : (<Profile/>) : (<Login/>)} />
+          <Route exact path="/addTeam" element={userInfo ? userInfo.isAdmin ? (<TeamAddAdmin/>) : (<Profile/>) : (<Login/>)} />
+          <Route exact path="/deleteTeam" element={userInfo ? userInfo.isAdmin ? (<TeamDelete/>) : (<Profile/>) : (<Login/>)} />
+
+
           <Route path="/profile" element={<Profile />} />
           <Route path="/signup" element={<Signup />} />
 
