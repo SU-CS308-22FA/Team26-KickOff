@@ -102,6 +102,11 @@ export default function Navbar() {
                                         Delete Team
                                     </CustomLink>
                                 </Dropdown.Item>
+                                <Dropdown.Item>
+                                    <CustomLink to="/newsadddelete">
+                                        News Add
+                                    </CustomLink>
+                                </Dropdown.Item>
                             </DropdownButton>
                         </CustomLink>
 

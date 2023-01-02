@@ -58,7 +58,7 @@ export default function Matchpage() {
             try {
                   const API = "/matchcontroller/matches/" + id;
                   const { data } = await Axios.delete(API);
-      
+
                   getTeams();
                   handleClose();
                   dispatch({ type: "MATCH_DELETE_SUCCESS", payload: data });
@@ -81,14 +81,11 @@ export default function Matchpage() {
       return (
             <>
                   <h1 align="center">Match Results</h1>
-                  <div align="center">
+                  <div align="center" className='matchesList'>
                         {matchesList.map((val, key) => (
-                              <Paper elevation={12} sx={{ maxWidth: 1500 }} width="50%"  >
+                              <Paper elevation={0} sx={{ minWidth: 1500 }}>
                                     <TableContainer align="center" component={Paper} padding="10px"  >
-                                          <Table sx={{ maxWidth: 1500 }} align="center" fixedHeader={true} size="small" aria-label="a dense table">
-                                                <TableHead>
-                                                      <TableRow>
-                                                            {userInfo.isAdmin && (
+                                    {userInfo.isAdmin && (
                                                                   <div>
                                                                         <button className='Button' onClick={() => handleOpen(val._id)}>Delete Match</button>
                                                                         <Dialog
@@ -103,17 +100,22 @@ export default function Matchpage() {
                                                                               <DialogContent>
                                                                                     <DialogContentText id="alert-dialog-description">
                                                                                           Are you sure you want to delete the match?
-                                                            </DialogContentText>
+                                                                                    </DialogContentText>
                                                                               </DialogContent>
                                                                               <DialogActions>
                                                                                     <Button onClick={handleClose}>No</Button>
-                                                                                    <Button onClick={() => triggerDelete()}autoFocus>
+                                                                                    <Button onClick={() => triggerDelete()} autoFocus>
                                                                                           Yes
-                                                            </Button>
+                                                                                    </Button>
                                                                               </DialogActions>
                                                                         </Dialog>
                                                                   </div>
                                                             )}
+                                          <Table sx={{ maxWidth: 1500 }} align="center" fixedHeader={true} size="small" aria-label="a dense table">
+                                                
+                                                <TableHead>
+                                                      <TableRow>
+                                                            
                                                             <TableCell align="center" >Date:{val.date}</TableCell>
                                                             <TableCell align="center"></TableCell>
                                                             <TableCell align="center"> Stadium:{val.stadiumname}</TableCell>
@@ -238,7 +240,7 @@ export default function Matchpage() {
                                     <CommentMatch match={val} />
                                     <p> </p>
                               </Paper>
-                              
+
 
                         ))}
                   </div>
