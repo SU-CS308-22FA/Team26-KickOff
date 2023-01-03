@@ -27,10 +27,11 @@ export default function Navbar() {
             {userInfo
                 ?
                 <ul>
+
                     <CustomLink to="/players">
                         Players
                     </CustomLink>
-                    <CustomLink to="/detailed_team">
+                    <CustomLink to="/teams">
                         Teams
                     </CustomLink>
 
@@ -92,6 +93,11 @@ export default function Navbar() {
                                     </CustomLink>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
+                                    <CustomLink to="/addUpcomingMatch">
+                                        Add UpcomingMatch
+                                    </CustomLink>
+                                </Dropdown.Item>
+                                <Dropdown.Item>
                                     <CustomLink to="/addTeam">
                                         Add Team
                                     </CustomLink>
@@ -99,11 +105,6 @@ export default function Navbar() {
                                 <Dropdown.Item>
                                     <CustomLink to="/deleteTeam">
                                         Delete Team
-                                    </CustomLink>
-                                </Dropdown.Item>
-                                <Dropdown.Item>
-                                    <CustomLink to="/newsadddelete">
-                                        News Add
                                     </CustomLink>
                                 </Dropdown.Item>
                             </DropdownButton>
