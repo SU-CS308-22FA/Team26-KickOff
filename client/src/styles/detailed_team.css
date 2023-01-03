@@ -1,7 +1,23 @@
-.teamsList {
+.overall {
+  justify-content: center;
+  align-items:center;
+  display:flex;
+  
+}
+
+.ol.teamInfo {
+  height: 320px;
+}
+
+.card{
+  justify-content: center;
+  align-items:center;
+}
+
+.teamCard {
     display:flex;
     align-items:center;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
     flex-wrap: wrap;
     
@@ -11,15 +27,14 @@
     height: 700;
   }
   
-  .referee {
+  .teamInfo {
     width: 400px;
-    height: 580px;
     border-radius: 15px;
-    margin: 20px;
+    margin: 10px;
     display: flex;
-    padding: 15px;
+    padding: 10px;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
     color: white;
   }
   
