@@ -75,7 +75,7 @@ export default function Players() {
     const [input, setInput] = useState("");
     const [playerList, setPlayerList] = useState([]);
     const getPlayer = () => {
-        Axios.get("http://localhost:5001/api/players").then((response) => {
+        Axios.get("/api/players").then((response) => {
             setPlayerList(response.data);
         });
     };
@@ -137,10 +137,10 @@ export default function Players() {
                     <form >
                         Enter team name
                         &nbsp;
-                    <input type="text" onChange={handleChange}></input>
+                    <input id="teamName_field"type="text" onChange={handleChange}></input>
                     </form>
                 &nbsp; &nbsp;
-                <button className="search" onClick={getPlayer}>Show Players</button>
+                <button className="search1" id="myButton22" onClick={getPlayer}>Show Players</button>
                 </div>
                 <p></p>
             </div>

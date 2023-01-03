@@ -90,7 +90,7 @@ const handleSubmit = (event) => {
 
           <Grid>
             <Link href="/" color="rgb(255,255,255)">
-              <Button type="submit" color="primary" variant='contained' onClick = { handleSubmit } style = {buttonStyle} halfWidth>
+              <Button id="login_button" type="submit" color="primary" variant='contained' onClick = { handleSubmit } style = {buttonStyle} halfWidth>
                 Login
               </Button>
             </Link>
