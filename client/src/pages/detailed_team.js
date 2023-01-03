@@ -27,7 +27,7 @@ export default function DetailsTeam() {
     const [select, setSelect] = useState("");
 
     const getPlayer = () => {
-        Axios.get("http://localhost:5001/api/players").then((response) => {
+        Axios.get("/api/players").then((response) => {
             setPlayerList(response.data);
         });
     };
@@ -36,7 +36,7 @@ export default function DetailsTeam() {
     }, [playerList]);
 
     const getTeams = () => {
-        Axios.get("http://localhost:5001/api/teams").then((response) => {
+        Axios.get("/api/teams").then((response) => {
             setTeamList(response.data);
         });
     };
