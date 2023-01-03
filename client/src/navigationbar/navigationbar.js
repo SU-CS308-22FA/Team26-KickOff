@@ -93,6 +93,11 @@ export default function Navbar() {
                                     </CustomLink>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
+                                    <CustomLink to="/addUpcomingMatch">
+                                        Add UpcomingMatch
+                                    </CustomLink>
+                                </Dropdown.Item>
+                                <Dropdown.Item>
                                     <CustomLink to="/addTeam">
                                         Add Team
                                     </CustomLink>

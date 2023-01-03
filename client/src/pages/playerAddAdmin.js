@@ -53,7 +53,7 @@ export default function PlayerAddAdmin() {
         e.preventDefault();
         if (playerName && number && teamName && playerPosition && playerImage) {
             setfillBlank(false);
-            dispatch(addPlayer({ "teamname":teamName, "p_num":number, "p_name":playerName, "p_pos":playerPosition, "p_image":playerImage }));
+            dispatch(addPlayer({ "teamname": teamName, "p_num": number, "p_name": playerName, "p_pos": playerPosition, "p_image": playerImage }));
             setsuccess(true);
         }
         else {
@@ -98,12 +98,12 @@ export default function PlayerAddAdmin() {
                             {fillBlank ?
                                 <ErrorMessage variant="danger">
                                     Please fill all blanks
-								</ErrorMessage> : null}
+                                </ErrorMessage> : null}
                             <p> </p>
                             {imageFormat ?
                                 <ErrorMessage variant="danger">
                                     Please enter valid URL
-								</ErrorMessage> : null}
+                                </ErrorMessage> : null}
                             {success && (
                                 <ErrorMessage variant="success">
                                     Player Added Successfully
@@ -133,7 +133,7 @@ export default function PlayerAddAdmin() {
                             }}>
                                 <Button sx={{ mt: 2, mb: 2 }} variant="contained" onClick={handleClickOpenPicture}>
                                     Add player picture
-								</Button>
+                                </Button>
                             </div>
 
                             <Dialog
@@ -148,7 +148,7 @@ export default function PlayerAddAdmin() {
                                 <DialogContent>
                                     <DialogContentText id="alert-dialog-description">
                                         Please enter URL for player picture
-									</DialogContentText>
+                                    </DialogContentText>
                                     <TextField
                                         margin="normal"
                                         required
@@ -166,7 +166,7 @@ export default function PlayerAddAdmin() {
                                     <Button onClick={handleClosePicture}>No</Button>
                                     <Button onClick={submitPicture} autoFocus>
                                         Yes
-									</Button>
+                                    </Button>
                                 </DialogActions>
                             </Dialog>
 
@@ -183,10 +183,25 @@ export default function PlayerAddAdmin() {
                                     title={teamName ? teamName : "Select team for player"}
                                     id="playerTeam"
                                     onSelect={handleTeam}>
+                                    <Dropdown.Item eventKey="Adana Demirspor">Adana Demirspor</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Ankaragücü">Ankaragücü</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Antalyaspor">Antalyaspor</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Alanyaspor">Alanyaspor</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Başakşehir">Başakşehir</Dropdown.Item>
                                     <Dropdown.Item eventKey="Beşiktaş">Beşiktaş</Dropdown.Item>
-                                    <Dropdown.Item eventKey="Galatasaray">Galatasaray</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Fatih Karagümrük">Fatih Karagümrük</Dropdown.Item>
                                     <Dropdown.Item eventKey="Fenerbahçe">Fenerbahçe</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Galatasaray">Galatasaray</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Gaziantep">Gaziantep</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Giresunspor">Giresunspor</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Hatayspor">Hatayspor</Dropdown.Item>
+                                    <Dropdown.Item eventKey="İstanbulspor">İstanbulspor</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Kasımpaşa">Kasımpaşa</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Kayserispor">Kayserispor</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Konyaspor">Konyaspor</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Sivasspor">Sivasspor</Dropdown.Item>
                                     <Dropdown.Item eventKey="Trabzonspor">Trabzonspor</Dropdown.Item>
+                                    <Dropdown.Item eventKey="Ümraniyespor">Ümraniyespor</Dropdown.Item>
                                 </DropdownButton>
                             </div>
                             <TextField
@@ -233,7 +248,7 @@ export default function PlayerAddAdmin() {
                                 <Col md={6}>
                                     <Button id="myButton" sx={{ mt: 2, mb: 2, mr: 2 }} variant="contained" color="primary" type="submit" varient="primary">
                                         Add Player
-								</Button>
+                                    </Button>
 
                                 </Col>
                                 <Col md={3}></Col>
