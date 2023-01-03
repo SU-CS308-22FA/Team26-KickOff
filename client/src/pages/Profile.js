@@ -205,10 +205,25 @@ const Profile = () => {
 									title={userInfo.supportedTeam ? userInfo.supportedTeam : "Select your team"}
 									id="supportedTeam"
 									onSelect={handleSupportTeam}>
-									<Dropdown.Item eventKey="Beşiktaş">Beşiktaş</Dropdown.Item>
-									<Dropdown.Item eventKey="Galatasaray">Galatasaray</Dropdown.Item>
-									<Dropdown.Item eventKey="Fenerbahçe">Fenerbahçe</Dropdown.Item>
-									<Dropdown.Item eventKey="Trabzonspor">Trabzonspor</Dropdown.Item>
+                                <Dropdown.Item eventKey="Adana Demirspor">Adana Demirspor</Dropdown.Item>
+                                <Dropdown.Item eventKey="Ankaragücü">Ankaragücü</Dropdown.Item>
+                                <Dropdown.Item eventKey="Antalyaspor">Antalyaspor</Dropdown.Item>
+                                <Dropdown.Item eventKey="Alanyaspor">Alanyaspor</Dropdown.Item>
+                                <Dropdown.Item eventKey="Başakşehir">Başakşehir</Dropdown.Item>
+                                <Dropdown.Item eventKey="Beşiktaş">Beşiktaş</Dropdown.Item>
+                                <Dropdown.Item eventKey="Fatih Karagümrük">Fatih Karagümrük</Dropdown.Item>
+                                <Dropdown.Item eventKey="Fenerbahçe">Fenerbahçe</Dropdown.Item>
+                                <Dropdown.Item eventKey="Galatasaray">Galatasaray</Dropdown.Item>
+                                <Dropdown.Item eventKey="Gaziantep">Gaziantep</Dropdown.Item>
+                                <Dropdown.Item eventKey="Giresunspor">Giresunspor</Dropdown.Item>
+                                <Dropdown.Item eventKey="Hatayspor">Hatayspor</Dropdown.Item>
+                                <Dropdown.Item eventKey="İstanbulspor">İstanbulspor</Dropdown.Item>
+                                <Dropdown.Item eventKey="Kasımpaşa">Kasımpaşa</Dropdown.Item>
+                                <Dropdown.Item eventKey="Kayserispor">Kayserispor</Dropdown.Item>
+                                <Dropdown.Item eventKey="Konyaspor">Konyaspor</Dropdown.Item>
+                                <Dropdown.Item eventKey="Sivasspor">Sivasspor</Dropdown.Item>
+                                <Dropdown.Item eventKey="Trabzonspor">Trabzonspor</Dropdown.Item>
+                                <Dropdown.Item eventKey="Ümraniyespor">Ümraniyespor</Dropdown.Item>
 								</DropdownButton>
 							</div>
 							<TextField
