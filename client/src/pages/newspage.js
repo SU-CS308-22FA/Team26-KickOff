@@ -100,7 +100,7 @@ export default function ControlledAccordions() {
             <Container className='contfornews' >
               {userInfo.isAdmin && (
                 <div >
-                  <button className='button2' color="blue" margin="300" onClick={() => handleOpen(val._id)}>Delete Match</button>
+                  <button className='button2' color="blue" margin="300" onClick={() => handleOpen(val._id)}>Delete News</button>
                   <Dialog
                     open={open}
                     onClose={handleClose}

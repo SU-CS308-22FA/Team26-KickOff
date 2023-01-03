@@ -20,6 +20,7 @@ import TeamAddAdmin from "./pages/teamAddAdmin";
 import UpcomingMatchAddAdmin from "./pages/upcomingmatchAddAdmin";
 import TeamDelete from "./pages/teamAdminDelete";
 import News from "./pages/newspage";
+import AddNews from "./pages/newsAddDelete";
 
 
 
@@ -46,6 +47,7 @@ function App() {
           <Route exact path="/addTeam" element={userInfo ? userInfo.isAdmin ? (<TeamAddAdmin/>) : (<Profile/>) : (<Login/>)} />
           <Route exact path="/deleteTeam" element={userInfo ? userInfo.isAdmin ? (<TeamDelete/>) : (<Profile/>) : (<Login/>)} />
           <Route exact path="/addUpcomingMatch" element={userInfo ? userInfo.isAdmin ? (<UpcomingMatchAddAdmin/>) : (<Profile/>) : (<Login/>)} />
+          <Route exact path="/addNews" element={userInfo ? userInfo.isAdmin ? (<AddNews/>) : (<Profile/>) : (<Login/>)} />
 
 
           <Route path="/profile" element={<Profile />} />
