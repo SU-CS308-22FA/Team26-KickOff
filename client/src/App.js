@@ -13,6 +13,7 @@ import UpcomingMatches from "./pages/upcomingmatches";
 import Todo from "./components/Todo";
 import Team from "./pages/Team";
 import Player from "./pages/Players";
+import TeamDetails from "./pages/detailed_team";
 
 import News from "./pages/newspage";
 
@@ -54,6 +55,8 @@ function App() {
           <Route path="/newspage" element={<News />} />
 
           <Route path="/team_comparison" element={<TeamComparison />} />
+
+          <Route path="/detailed_team" element={<TeamDetails />} />
 
 
         </Routes>
