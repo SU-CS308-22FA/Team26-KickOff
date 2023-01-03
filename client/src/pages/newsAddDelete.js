@@ -8,7 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Form, Row, Col } from "react-bootstrap";
 import Loading from "../components/Loading";
-import { addNews } from "/Users/ozgun/Desktop/26/Team26-KickOff/client/src/actions/newsActions.js";
+import { addNews } from "../actions/newsActions";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
