@@ -130,7 +130,7 @@ export default function Referees() {
     const [select, setSelect] = useState("");
     const [refereeList, setRefereeList] = useState([]);
     const getReferee = () => {
-        Axios.get("http://localhost:5001/refereecontroller/referees").then((response) => {
+        Axios.get("/refereecontroller/referees").then((response) => {
             setRefereeList(response.data);
         });
     };
